@@ -616,41 +616,67 @@ translations.zh.buttons = {
   viewProjects: "看作品",
   githubProfile: "GitHub 個人頁",
   liveDemo: "線上展示",
-  githubRepo: "GitHub Repo"
+  githubRepo: "GitHub Repo",
+  privateRepo: "Private repo"
 };
 translations.en.buttons = {
   viewProjects: "View Projects",
   githubProfile: "GitHub Profile",
   liveDemo: "Live Demo",
-  githubRepo: "GitHub Repo"
+  githubRepo: "GitHub Repo",
+  privateRepo: "Private repo"
 };
 
 translations.zh.projects = {
   twin: {
     kicker: "Web 3D / Digital Twin",
     title: "Semiconductor Digital Twin",
+    media: "Live IFC viewer",
     body:
-      "IFC-first viewer，結合 federated models、spatial tree、category layer controls 與 telemetry-driven 3D state，朝 operator-facing 產品核心去做。"
+      "IFC-first viewer，結合 federated models、spatial tree、category layer controls 與 telemetry-driven 3D state，朝 operator-facing 產品核心去做。",
+    points: [
+      "可載入 bundled/local IFC，並管理多模型與 category layers。",
+      "Telemetry 會直接改變 3D 狀態、告警與 dashboard 指標。",
+      "以可演進的產品核心設計，而不是一次性的 viewer 場景。"
+    ]
   },
   token: {
     kicker: "Desktop Utility / Workflow Tool",
     title: "TokenScope",
+    media: "Desktop utility window",
     body:
-      "追蹤 Claude.ai 與 Codex 使用量的 macOS menubar 工具，包含本機 session parsing、threshold 通知、以及可分離的 utility window。"
+      "追蹤 Claude.ai 與 Codex 使用量的 macOS menubar 工具，包含本機 session parsing、threshold 通知、以及可分離的 utility window。",
+    points: [
+      "從本機 session 追蹤 Claude 與 Codex 的使用狀態。",
+      "呈現 limits、reset window、趨勢與專案活動。",
+      "以日常高頻使用為核心，放在 macOS menubar 工作流裡。"
+    ]
   }
 };
 translations.en.projects = {
   twin: {
     kicker: "Web 3D / Digital Twin",
     title: "Semiconductor Digital Twin",
+    media: "Live IFC viewer",
     body:
-      "An IFC-first viewer that combines federated models, a spatial tree, category layer controls, and telemetry-driven 3D state into an operator-facing product core."
+      "An IFC-first viewer that combines federated models, a spatial tree, category layer controls, and telemetry-driven 3D state into an operator-facing product core.",
+    points: [
+      "Loads bundled/local IFC while keeping models and category layers manageable.",
+      "Telemetry directly changes 3D state, alerts, and dashboard metrics.",
+      "Designed as an extensible product core, not a one-off viewer scene."
+    ]
   },
   token: {
     kicker: "Desktop Utility / Workflow Tool",
     title: "TokenScope",
+    media: "Desktop utility window",
     body:
-      "A macOS menubar companion for Claude.ai and Codex usage tracking, with local session parsing, threshold notifications, and a detachable utility window."
+      "A macOS menubar companion for Claude.ai and Codex usage tracking, with local session parsing, threshold notifications, and a detachable utility window.",
+    points: [
+      "Tracks Claude and Codex usage from local sessions.",
+      "Surfaces limits, reset windows, trends, and project activity.",
+      "Designed for repeated daily use from the macOS menubar."
+    ]
   }
 };
 

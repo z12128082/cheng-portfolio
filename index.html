@@ -229,61 +229,97 @@
 
         <div class="project-grid">
           <article class="project-card project-card-primary">
-            <p class="project-card-kicker" data-i18n="projects.twin.kicker">Web 3D / Digital Twin</p>
-            <h3 data-i18n="projects.twin.title">Semiconductor Digital Twin</h3>
-            <p data-i18n="projects.twin.body">
-              IFC-first viewer with federated models, spatial tree, category layer controls, telemetry-driven color state, and an operator-first dashboard.
-            </p>
-            <div class="project-tags">
-              <span>Three.js</span>
-              <span>IFC</span>
-              <span>TypeScript</span>
-              <span>WebSocket</span>
-            </div>
-            <div class="project-links">
-              <a
-                class="project-link primary"
-                href="https://z12128082.github.io/semiconductor-digital-twin/"
-                target="_blank"
-                rel="noreferrer"
-                data-i18n="buttons.liveDemo"
-              >
-                Live Demo
-              </a>
-              <a
-                class="project-link"
-                href="https://github.com/z12128082/semiconductor-digital-twin"
-                target="_blank"
-                rel="noreferrer"
-                data-i18n="buttons.githubRepo"
-              >
-                GitHub
-              </a>
+            <a
+              class="project-media"
+              href="https://z12128082.github.io/semiconductor-digital-twin/"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Open Semiconductor Digital Twin live demo"
+            >
+              <img
+                src="./assets/project-semiconductor-digital-twin.png"
+                alt="Semiconductor Digital Twin viewer showing an IFC model, telemetry status, and operations dashboard"
+                loading="lazy"
+              />
+              <span class="project-media-caption">
+                <span class="project-live-dot"></span>
+                <span data-i18n="projects.twin.media">Live IFC viewer</span>
+              </span>
+            </a>
+            <div class="project-content">
+              <p class="project-card-kicker" data-i18n="projects.twin.kicker">Web 3D / Digital Twin</p>
+              <h3 data-i18n="projects.twin.title">Semiconductor Digital Twin</h3>
+              <p data-i18n="projects.twin.body">
+                IFC-first viewer with federated models, spatial tree, category layer controls, telemetry-driven color state, and an operator-first dashboard.
+              </p>
+              <ul class="project-proof-list">
+                <li data-i18n="projects.twin.points.0">Loads bundled/local IFC and keeps model layers manageable.</li>
+                <li data-i18n="projects.twin.points.1">Telemetry changes 3D state, alerts, and dashboard metrics.</li>
+                <li data-i18n="projects.twin.points.2">Built as a product core, not a one-off viewer scene.</li>
+              </ul>
+              <div class="project-tags">
+                <span>Three.js</span>
+                <span>IFC</span>
+                <span>TypeScript</span>
+                <span>WebSocket</span>
+              </div>
+              <div class="project-links">
+                <a
+                  class="project-link primary"
+                  href="https://z12128082.github.io/semiconductor-digital-twin/"
+                  target="_blank"
+                  rel="noreferrer"
+                  data-i18n="buttons.liveDemo"
+                >
+                  Live Demo
+                </a>
+                <a
+                  class="project-link"
+                  href="https://github.com/z12128082/semiconductor-digital-twin"
+                  target="_blank"
+                  rel="noreferrer"
+                  data-i18n="buttons.githubRepo"
+                >
+                  GitHub
+                </a>
+              </div>
             </div>
           </article>
 
           <article class="project-card">
-            <p class="project-card-kicker" data-i18n="projects.token.kicker">Desktop Utility / Workflow Tool</p>
-            <h3 data-i18n="projects.token.title">TokenScope</h3>
-            <p data-i18n="projects.token.body">
-              A macOS menubar companion for Claude.ai and Codex usage tracking, built around local log parsing, thresholds, notifications, and a detached utility window.
-            </p>
-            <div class="project-tags">
-              <span>Electron</span>
-              <span>Claude</span>
-              <span>Codex</span>
-              <span>Desktop</span>
+            <div class="project-media is-compact">
+              <img
+                src="./assets/project-tokenscope.png"
+                alt="TokenScope macOS menubar utility showing Claude usage rings and live status"
+                loading="lazy"
+              />
+              <span class="project-media-caption">
+                <span class="project-live-dot"></span>
+                <span data-i18n="projects.token.media">Desktop utility window</span>
+              </span>
             </div>
-            <div class="project-links">
-              <a
-                class="project-link"
-                href="https://github.com/z12128082/tokenscope"
-                target="_blank"
-                rel="noreferrer"
-                data-i18n="buttons.githubRepo"
-              >
-                GitHub
-              </a>
+            <div class="project-content">
+              <p class="project-card-kicker" data-i18n="projects.token.kicker">Desktop Utility / Workflow Tool</p>
+              <h3 data-i18n="projects.token.title">TokenScope</h3>
+              <p data-i18n="projects.token.body">
+                A macOS menubar companion for Claude.ai and Codex usage tracking, built around local log parsing, thresholds, notifications, and a detached utility window.
+              </p>
+              <ul class="project-proof-list">
+                <li data-i18n="projects.token.points.0">Tracks Claude and Codex usage from local sessions.</li>
+                <li data-i18n="projects.token.points.1">Surfaces limits, reset windows, trends, and project activity.</li>
+                <li data-i18n="projects.token.points.2">Designed for repeated daily use from the macOS menubar.</li>
+              </ul>
+              <div class="project-tags">
+                <span>Electron</span>
+                <span>Claude</span>
+                <span>Codex</span>
+                <span>Desktop</span>
+              </div>
+              <div class="project-links">
+                <span class="project-link project-link-disabled" data-i18n="buttons.privateRepo">
+                  Private repo
+                </span>
+              </div>
             </div>
           </article>
         </div>
