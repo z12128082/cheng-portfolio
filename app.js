@@ -529,9 +529,9 @@ Object.assign(translations.zh.opening, {
 Object.assign(translations.en.opening, {
   kicker: "Product Engineering Portfolio",
   title: '<span class="headline-line">CHENG</span><span class="headline-line">PORTFOLIO</span>',
-  accent: '<span class="headline-caption">Building spatial systems, data-rich interfaces, and tools that are meant to be used in real workflows.</span>',
+  accent: '<span class="headline-caption">Spatial systems, data-rich interfaces, and tools for real workflows.</span>',
   summary:
-    "I build Web 3D interfaces, real-time data surfaces, desktop utilities, and operator-facing tools. This homepage currently focuses on two representative projects: a semiconductor digital twin and TokenScope."
+    "I build Web 3D, real-time data surfaces, desktop utilities, and operator-facing tools, shown through two projects: a semiconductor digital twin and TokenScope."
 });
 
 Object.assign(translations.zh.chapters.intro, {
