@@ -399,7 +399,7 @@ h1 {
   opacity: var(--showcase-opacity, 0);
   pointer-events: none;
   transform:
-    translate3d(0, calc(-50% + var(--showcase-y, 0px)), 0)
+    translate3d(var(--showcase-x, 0px), calc(-50% + var(--showcase-y, 0px)), 0)
     scale(var(--showcase-scale, 0.96));
   transform-origin: 58% 50%;
   transition:

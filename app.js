@@ -787,6 +787,9 @@ const showcaseSceneIds = new Set(
 const sceneSwitchProgress = 0.34;
 const sceneReleaseProgress = 0.08;
 const showcaseStepCount = 4;
+const showcaseRevealStart = 0.36;
+const showcaseRevealEnd = 0.68;
+const showcaseDemoStart = 0.6;
 
 function t(path) {
   return path.split(".").reduce((current, key) => current?.[key], translations[state.locale]);
@@ -943,32 +946,52 @@ function updateProductShowcases(chapterStates) {
       return;
     }
 
-    const visibility = easeInOut(clamp(chapterState.progress * 1.16, 0, 1));
     const scrubProgress = state.reducedMotion
       ? 0.58
       : getChapterScrubProgress(chapterState.node);
-    const stepProgress = clamp((scrubProgress - 0.32) / 0.58, 0, 1);
+    const revealProgress = state.reducedMotion
+      ? 1
+      : easeCinematic(
+          clamp(
+            (scrubProgress - showcaseRevealStart) /
+              (showcaseRevealEnd - showcaseRevealStart),
+            0,
+            1
+          )
+        );
+    const chapterVisibility = easeInOut(clamp(chapterState.progress * 1.12, 0, 1));
+    const visibility = revealProgress * chapterVisibility;
+    const stepProgress = clamp(
+      (scrubProgress - showcaseDemoStart) / (1 - showcaseDemoStart),
+      0,
+      1
+    );
     const stepIndex = Math.min(
       showcaseStepCount - 1,
       Math.floor(stepProgress * showcaseStepCount)
     );
-    const introOffset = (1 - visibility) * 52 * chapterState.direction;
+    const introOffset = (1 - revealProgress) * 34;
+    const horizontalOffset = (1 - revealProgress) * 118;
     const isTokenScope = sceneId === "prompt-fabric";
     const mediaScale = isTokenScope
-      ? 1 + scrubProgress * 0.035
-      : 1.02 + scrubProgress * 0.11;
+      ? 1 + stepProgress * 0.035
+      : 1.02 + stepProgress * 0.11;
     const mediaX = isTokenScope
-      ? lerp(0, 0.8, scrubProgress)
-      : lerp(0, -5.8, scrubProgress);
+      ? lerp(0, 0.8, stepProgress)
+      : lerp(0, -5.8, stepProgress);
     const mediaY = isTokenScope
-      ? lerp(0, -1.6, scrubProgress)
-      : lerp(0, -4.2, scrubProgress);
+      ? lerp(0, -1.6, stepProgress)
+      : lerp(0, -4.2, stepProgress);
 
     showcase.classList.toggle("is-visible", visibility > 0.08);
     showcase.style.setProperty("--showcase-opacity", String(visibility));
+    showcase.style.setProperty("--showcase-x", `${horizontalOffset}px`);
     showcase.style.setProperty("--showcase-y", `${introOffset}px`);
-    showcase.style.setProperty("--showcase-scale", String(0.94 + visibility * 0.06));
-    showcase.style.setProperty("--showcase-progress", String(scrubProgress));
+    showcase.style.setProperty(
+      "--showcase-scale",
+      String(0.78 + revealProgress * 0.22)
+    );
+    showcase.style.setProperty("--showcase-progress", String(stepProgress));
     showcase.style.setProperty("--showcase-media-scale", String(mediaScale));
     showcase.style.setProperty("--showcase-media-x", `${mediaX}%`);
     showcase.style.setProperty("--showcase-media-y", `${mediaY}%`);
