@@ -514,6 +514,245 @@ const scenes = [
   }
 ];
 
+function metric(labelZh, labelEn, valueZh, valueEn) {
+  return {
+    label: { zh: labelZh, en: labelEn },
+    value: { zh: valueZh, en: valueEn }
+  };
+}
+
+Object.assign(translations.zh.brand, {
+  title: "Cheng Portfolio",
+  subtitle: "Spatial systems and operator tools"
+});
+Object.assign(translations.en.brand, {
+  title: "Cheng Portfolio",
+  subtitle: "Spatial systems and operator tools"
+});
+
+translations.zh.nav.work = "作品";
+translations.zh.nav.featured = "精選";
+translations.en.nav.work = "Work";
+translations.en.nav.featured = "Featured";
+
+Object.assign(translations.zh.opening, {
+  kicker: "Product Engineering Portfolio",
+  title: '<span class="headline-line">CHENG</span><span class="headline-line">PORTFOLIO</span>',
+  accent: '<span class="headline-caption">把空間、資料與工作流程做成真的能被使用的產品。</span>',
+  summary:
+    "我做 Web 3D、即時資料、桌面工具與 operator-facing interfaces。這個首頁先收斂成兩個代表作：半導體數位孿生與 TokenScope。"
+});
+Object.assign(translations.en.opening, {
+  kicker: "Product Engineering Portfolio",
+  title: '<span class="headline-line">CHENG</span><span class="headline-line">PORTFOLIO</span>',
+  accent: '<span class="headline-caption">Building spatial systems, data-rich interfaces, and tools that are meant to be used in real workflows.</span>',
+  summary:
+    "I build Web 3D interfaces, real-time data surfaces, desktop utilities, and operator-facing tools. This homepage currently focuses on two representative projects: a semiconductor digital twin and TokenScope."
+});
+
+Object.assign(translations.zh.chapters.intro, {
+  kicker: "Positioning",
+  title: "我不是在堆技術展示，而是在把複雜系統做成可操作的產品介面",
+  body:
+    "六年軟體經驗，關注 spatial UI、real-time telemetry、桌面工具與 AI-assisted workflow。偏好的不是模板網站，而是有節奏、有系統感、可解釋的產品體驗。"
+});
+Object.assign(translations.en.chapters.intro, {
+  kicker: "Positioning",
+  title: "I am not stacking tech demos. I am turning complex systems into usable product interfaces.",
+  body:
+    "With six years of software experience, I focus on spatial UI, real-time telemetry, desktop utilities, and AI-assisted workflows. I care less about templates and more about deliberate, explainable product experiences."
+});
+
+Object.assign(translations.zh.chapters.approach, {
+  kicker: "Build Method",
+  title: "我喜歡把複雜領域壓成可理解、可維護、可交付的產品骨架"
+});
+Object.assign(translations.en.chapters.approach, {
+  kicker: "Build Method",
+  title: "I like compressing complex domains into product structures that are readable, maintainable, and shippable."
+});
+
+translations.zh.approach.items = [
+  {
+    title: "Product before demo",
+    body: "我在意的是功能怎麼被長期擴充，而不是一次性的展示效果。"
+  },
+  {
+    title: "Systems with real operators",
+    body: "不只是把資料畫出來，而是讓人真的能沿著介面做判斷與操作。"
+  },
+  {
+    title: "AI as leverage, not mystery",
+    body: "我會用 AI 加速開發，但前提是每個架構取捨與程式碼結果都必須能被自己解釋。"
+  }
+];
+translations.en.approach.items = [
+  {
+    title: "Product before demo",
+    body: "I care about how a capability can grow over time, not just how impressive it looks in one moment."
+  },
+  {
+    title: "Systems with real operators",
+    body: "The goal is not only to visualize data, but to help someone make judgments and take action through the interface."
+  },
+  {
+    title: "AI as leverage, not mystery",
+    body: "I use AI to accelerate delivery, but every architecture choice and code path still needs to be understandable and explainable."
+  }
+];
+
+Object.assign(translations.zh.footer, {
+  kicker: "Featured Work",
+  title:
+    "目前先收斂成兩個代表作：一個是面向廠務與營運端的 Web 3D 數位孿生，一個是面向日常工作流的桌面監控工具。"
+});
+Object.assign(translations.en.footer, {
+  kicker: "Featured Work",
+  title:
+    "For now the portfolio narrows down to two representative projects: a Web 3D operational digital twin and a desktop monitoring tool for day-to-day workflows."
+});
+
+translations.zh.buttons = {
+  viewProjects: "看作品",
+  githubProfile: "GitHub 個人頁",
+  liveDemo: "線上展示",
+  githubRepo: "GitHub Repo"
+};
+translations.en.buttons = {
+  viewProjects: "View Projects",
+  githubProfile: "GitHub Profile",
+  liveDemo: "Live Demo",
+  githubRepo: "GitHub Repo"
+};
+
+translations.zh.projects = {
+  twin: {
+    kicker: "Web 3D / Digital Twin",
+    title: "Semiconductor Digital Twin",
+    body:
+      "IFC-first viewer，結合 federated models、spatial tree、category layer controls 與 telemetry-driven 3D state，朝 operator-facing 產品核心去做。"
+  },
+  token: {
+    kicker: "Desktop Utility / Workflow Tool",
+    title: "TokenScope",
+    body:
+      "追蹤 Claude.ai 與 Codex 使用量的 macOS menubar 工具，包含本機 session parsing、threshold 通知、以及可分離的 utility window。"
+  }
+};
+translations.en.projects = {
+  twin: {
+    kicker: "Web 3D / Digital Twin",
+    title: "Semiconductor Digital Twin",
+    body:
+      "An IFC-first viewer that combines federated models, a spatial tree, category layer controls, and telemetry-driven 3D state into an operator-facing product core."
+  },
+  token: {
+    kicker: "Desktop Utility / Workflow Tool",
+    title: "TokenScope",
+    body:
+      "A macOS menubar companion for Claude.ai and Codex usage tracking, with local session parsing, threshold notifications, and a detachable utility window."
+  }
+};
+
+for (const scene of scenes) {
+  if (scene.id === "intro") {
+    Object.assign(scene, {
+      rail: { zh: "Profile", en: "Profile" },
+      label: { zh: "Profile 00", en: "Profile 00" },
+      title: { zh: "Product Positioning", en: "Product Positioning" },
+      description: {
+        zh: "一個偏產品思維的軟體工程師，專注在 spatial UI、即時資料與工作流工具。",
+        en: "A product-minded software engineer focused on spatial UI, real-time data, and workflow tooling."
+      },
+      metrics: [
+        metric("Focus", "Focus", "Spatial / Data / Tools", "Spatial / Data / Tools"),
+        metric("Mode", "Mode", "產品導向", "Product minded"),
+        metric("Stack", "Stack", "Web / Desktop", "Web / Desktop")
+      ]
+    });
+  }
+
+  if (scene.id === "wafer-drift") {
+    Object.assign(scene, {
+      rail: { zh: "Twin", en: "Twin" },
+      label: { zh: "Project 01", en: "Project 01" },
+      chapterKicker: {
+        zh: "Featured Project / Web 3D",
+        en: "Featured Project / Web 3D"
+      },
+      title: { zh: "Semiconductor Digital Twin", en: "Semiconductor Digital Twin" },
+      description: {
+        zh: "以 IFC 為入口，結合 federated models、3D scene、tree 與 telemetry，做出面向營運端的產品原型。",
+        en: "An IFC-first product prototype that combines federated models, 3D scene logic, spatial hierarchy, and telemetry for operations-facing use."
+      },
+      metrics: [
+        metric("Role", "Role", "產品原型 / Web 3D", "Product prototype / Web 3D"),
+        metric("Stack", "Stack", "Three.js / IFC / TS", "Three.js / IFC / TS"),
+        metric("Output", "Output", "Operator-first viewer", "Operator-first viewer")
+      ]
+    });
+  }
+
+  if (scene.id === "yield-constellation") {
+    Object.assign(scene, {
+      rail: { zh: "Ops", en: "Ops" },
+      label: { zh: "Project 01B", en: "Project 01B" },
+      chapterKicker: {
+        zh: "Realtime Ops / Product Layer",
+        en: "Realtime Ops / Product Layer"
+      },
+      title: { zh: "Federated IFC + Telemetry", en: "Federated IFC + Telemetry" },
+      description: {
+        zh: "重點不只是幾何，而是把 BIM 匯出資料變成 layer、alerts、trends、selection sync 與決策節奏的一部分。",
+        en: "The value is not geometry alone. It is turning BIM export data into layers, alerts, trends, selection sync, and operational decision flow."
+      },
+      metrics: [
+        metric("Input", "Input", "IFC / local files", "IFC / local files"),
+        metric("State", "State", "Telemetry-driven color", "Telemetry-driven color"),
+        metric("UI", "UI", "Tree / layers / trends", "Tree / layers / trends")
+      ]
+    });
+  }
+
+  if (scene.id === "prompt-fabric") {
+    Object.assign(scene, {
+      rail: { zh: "Tool", en: "Tool" },
+      label: { zh: "Project 02", en: "Project 02" },
+      chapterKicker: {
+        zh: "Desktop Utility / Workflow",
+        en: "Desktop Utility / Workflow"
+      },
+      title: { zh: "TokenScope", en: "TokenScope" },
+      description: {
+        zh: "一個針對 Claude.ai 與 Codex 使用量的桌面工具，從本機 session log、提醒通知到 detachable utility window 都圍繞真實工作流設計。",
+        en: "A desktop utility for Claude.ai and Codex usage tracking, designed around real workflows from local session logs to threshold notifications and a detachable utility window."
+      },
+      metrics: [
+        metric("Platform", "Platform", "macOS menubar app", "macOS menubar app"),
+        metric("Stack", "Stack", "Electron / Express", "Electron / Express"),
+        metric("Use case", "Use case", "Usage monitoring", "Usage monitoring")
+      ]
+    });
+  }
+
+  if (scene.id === "approach") {
+    Object.assign(scene, {
+      rail: { zh: "Method", en: "Method" },
+      label: { zh: "Method 04", en: "Method 04" },
+      title: { zh: "Build Method", en: "Build Method" },
+      description: {
+        zh: "我偏好把複雜系統拆成可演進的產品能力，而不是只留一個漂亮但難維護的展示層。",
+        en: "I prefer breaking complex systems into evolvable product capabilities instead of leaving them as beautiful but fragile presentation layers."
+      },
+      metrics: [
+        metric("Bias", "Bias", "Ship, then refine", "Ship, then refine"),
+        metric("Priority", "Priority", "Clarity / maintainability", "Clarity / maintainability"),
+        metric("AI", "AI", "Leverage, not magic", "Leverage, not magic")
+      ]
+    });
+  }
+}
+
 const state = {
   locale: window.localStorage.getItem("exhibit-locale") || "zh",
   activeSceneId: "intro",
@@ -599,13 +838,13 @@ function setStaticTranslations() {
   const scene1 = getScene("wafer-drift");
   const scene2 = getScene("yield-constellation");
   const scene3 = getScene("prompt-fabric");
-  chapter1Kicker.textContent = state.locale === "zh" ? "圖形轉移 / 製程偏移" : "Pattern Transfer / Drift";
+  chapter1Kicker.textContent = scene1.chapterKicker[state.locale];
   chapter1Title.textContent = scene1.title[state.locale];
   chapter1Body.textContent = scene1.description[state.locale];
-  chapter2Kicker.textContent = state.locale === "zh" ? "檢測 / 良率地圖" : "Inspection / Yield Map";
+  chapter2Kicker.textContent = scene2.chapterKicker[state.locale];
   chapter2Title.textContent = scene2.title[state.locale];
   chapter2Body.textContent = scene2.description[state.locale];
-  chapter3Kicker.textContent = state.locale === "zh" ? "AI 決策 / 回饋控制" : "AI Decision / Feedback";
+  chapter3Kicker.textContent = scene3.chapterKicker[state.locale];
   chapter3Title.textContent = scene3.title[state.locale];
   chapter3Body.textContent = scene3.description[state.locale];
 
@@ -614,6 +853,14 @@ function setStaticTranslations() {
       "is-active",
       button.dataset.localeTrigger === state.locale
     );
+  });
+
+  railItems.forEach((item) => {
+    const scene = getScene(item.dataset.railScene);
+    const titleNode = item.querySelector("strong");
+    if (titleNode && scene.rail) {
+      titleNode.textContent = scene.rail[state.locale];
+    }
   });
 
   updateHud(getScene(state.activeSceneId));
@@ -630,8 +877,8 @@ function updateHud(scene) {
     .map(
       (metric) => `
         <div class="hud-metric">
-          <p>${metric.label}</p>
-          <strong>${metric.value}</strong>
+          <p>${typeof metric.label === "string" ? metric.label : metric.label[state.locale]}</p>
+          <strong>${typeof metric.value === "string" ? metric.value : metric.value[state.locale]}</strong>
         </div>
       `
     )

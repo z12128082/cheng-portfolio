@@ -6,14 +6,14 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Wafer Signal Exhibit | Process to Decision</title>
+    <title>Cheng Portfolio | Spatial Systems and Operator Tools</title>
     <meta
       name="description"
-      content="A cinematic semiconductor exhibit where wafer alignment, pattern transfer, inspection maps, and AI decision feedback unfold through scroll-driven 3D scenes."
+      content="Product-minded software engineer building spatial systems, real-time interfaces, and operator-focused tools."
     />
     <meta name="theme-color" content="#081017" />
     <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="./styles.css?v=16" />
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <div class="page-shell">
@@ -21,14 +21,14 @@
         <a class="brand" href="#top" aria-label="Go to top">
           <span class="brand-mark"></span>
           <span class="brand-copy">
-            <strong data-i18n="brand.title">Wafer Signal Exhibit</strong>
-            <span data-i18n="brand.subtitle">Process to Decision</span>
+            <strong data-i18n="brand.title">Cheng Portfolio</strong>
+            <span data-i18n="brand.subtitle">Spatial systems and operator tools</span>
           </span>
         </a>
 
         <nav class="site-nav" aria-label="Primary">
-          <a href="#film" data-i18n="nav.systems">Scenes</a>
-          <a href="#archive" data-i18n="nav.archive">Index</a>
+          <a href="#film" data-i18n="nav.work">Work</a>
+          <a href="#archive" data-i18n="nav.featured">Featured</a>
         </nav>
 
         <div class="header-tools">
@@ -55,18 +55,32 @@
         <section class="opening">
           <div class="opening-copy">
             <p class="section-kicker" data-i18n="opening.kicker">
-              Wafer Signal Cinema
+              Product Engineering Portfolio
             </p>
             <h1 id="opening-title">
-              <span class="headline-line">WAFER</span>
-              <span class="headline-line">SIGNAL</span>
+              <span class="headline-line">CHENG</span>
+              <span class="headline-line">PORTFOLIO</span>
               <span class="headline-caption">
-                從晶圓對位、圖形轉移、檢測、良率地圖，到 AI 決策回饋的抽象演示。
+                把空間、資料與工作流程做成真的能被使用的產品。
               </span>
             </h1>
             <p class="opening-summary" id="opening-summary">
-              這不是一片漂亮晶圓的裝飾，而是從單一製程訊號擴展成 die grid、良率地圖、批次比較與決策回饋的 3D 展場。
+              我做 Web 3D、即時資料、桌面工具與 operator-facing interfaces。這個首頁先收斂成兩個代表作：半導體數位孿生與 TokenScope。
             </p>
+            <div class="opening-actions">
+              <a class="hero-button primary" href="#archive" data-i18n="buttons.viewProjects">
+                View Projects
+              </a>
+              <a
+                class="hero-button"
+                href="https://github.com/z12128082"
+                target="_blank"
+                rel="noreferrer"
+                data-i18n="buttons.githubProfile"
+              >
+                GitHub Profile
+              </a>
+            </div>
           </div>
         </section>
 
@@ -91,31 +105,31 @@
                     <i></i>
                     <i></i>
                   </div>
-                  <div class="stage-logo">WAFER SIGNAL</div>
-                  <div class="stage-axis stage-axis-left">PROCESS</div>
-                  <div class="stage-axis stage-axis-right">DECISION</div>
+                  <div class="stage-logo" data-i18n="brand.title">Cheng Portfolio</div>
+                  <div class="stage-axis stage-axis-left">SYSTEMS</div>
+                  <div class="stage-axis stage-axis-right">OPERATORS</div>
                 </div>
 
                 <nav class="scene-rail" aria-label="Scene rail">
                   <a class="scene-rail-item is-active" href="#scene-intro" data-rail-scene="intro">
                     <span>00</span>
-                    <strong>Alignment</strong>
+                    <strong>Profile</strong>
                   </a>
                   <a class="scene-rail-item" href="#scene-wafer-drift" data-rail-scene="wafer-drift">
                     <span>01</span>
-                    <strong>Pattern</strong>
+                    <strong>Twin</strong>
                   </a>
                   <a class="scene-rail-item" href="#scene-yield-constellation" data-rail-scene="yield-constellation">
                     <span>02</span>
-                    <strong>Yield</strong>
+                    <strong>Ops</strong>
                   </a>
                   <a class="scene-rail-item" href="#scene-prompt-fabric" data-rail-scene="prompt-fabric">
                     <span>03</span>
-                    <strong>Feedback</strong>
+                    <strong>Tool</strong>
                   </a>
                   <a class="scene-rail-item" href="#scene-approach" data-rail-scene="approach">
                     <span>04</span>
-                    <strong>Loop</strong>
+                    <strong>Method</strong>
                   </a>
                 </nav>
 
@@ -125,9 +139,9 @@
 
                 <div class="film-hud">
                   <p class="film-hud-kicker" id="hud-kicker">Scene 01</p>
-                  <h2 id="hud-title">Pattern Transfer</h2>
+                  <h2 id="hud-title">Semiconductor Digital Twin</h2>
                   <p id="hud-description">
-                    曝光狹縫掃過晶圓，die blocks 像被顯影一樣逐步浮現。
+                    IFC-first viewer, federated models, telemetry-driven 3D state, and operator-first dashboard logic.
                   </p>
                   <div class="hud-metrics" id="hud-metrics"></div>
                 </div>
@@ -137,65 +151,65 @@
             <div class="film-track" id="film-track">
               <article class="film-chapter chapter-intro" id="scene-intro" data-scene="intro">
                 <div class="chapter-index">00</div>
-                <p class="chapter-kicker" data-i18n="chapters.intro.kicker">Alignment</p>
+                <p class="chapter-kicker" data-i18n="chapters.intro.kicker">Positioning</p>
                 <h3 data-i18n="chapters.intro.title">
-                  先讓晶圓被定位，讓座標系統找到可以被閱讀的起點
+                  我不是在堆技術展示，而是在把複雜系統做成可操作的產品介面
                 </h3>
                 <p data-i18n="chapters.intro.body">
-                  第一幕不是展示作品，而是建立 wafer notch、die grid、reference line 與量測基準。
+                  六年軟體經驗，關注 spatial UI、real-time telemetry、桌面工具與 AI-assisted workflow。偏好的不是模板網站，而是有節奏、有系統感、可解釋的產品體驗。
                 </p>
               </article>
 
               <article class="film-chapter" id="scene-wafer-drift" data-scene="wafer-drift">
                 <div class="chapter-index">01</div>
-                <p class="chapter-kicker" id="chapter-kicker-1">Pattern Transfer / Drift</p>
-                <h3 id="chapter-title-1">Pattern Transfer</h3>
+                <p class="chapter-kicker" id="chapter-kicker-1">Featured Project / Web 3D</p>
+                <h3 id="chapter-title-1">Semiconductor Digital Twin</h3>
                 <p id="chapter-body-1">
-                  把 wafer-level signal、異常比較與 AI 輔助判讀導進同一個產品流裡，讓人沿著一個可追蹤的判斷路徑前進。
+                  IFC-first viewer with federated models, category layers, spatial tree, and telemetry-driven 3D state designed as an operator-facing product core.
                 </p>
               </article>
 
               <article class="film-chapter" id="scene-yield-constellation" data-scene="yield-constellation">
                 <div class="chapter-index">02</div>
-                <p class="chapter-kicker" id="chapter-kicker-2">Inspection / Yield Map</p>
-                <h3 id="chapter-title-2">Inspection Map</h3>
+                <p class="chapter-kicker" id="chapter-kicker-2">Realtime Ops / Product Layer</p>
+                <h3 id="chapter-title-2">Federated IFC + Telemetry</h3>
                 <p id="chapter-body-2">
-                  不是報表美化，而是把 yield、event 與設備節點重新編排成一張可巡航的資料星圖。
+                  The point is not just geometry. It is turning BIM export data into a live operational surface with scene layering, alerts, trends, and selection sync.
                 </p>
               </article>
 
               <article class="film-chapter" id="scene-prompt-fabric" data-scene="prompt-fabric">
                 <div class="chapter-index">03</div>
-                <p class="chapter-kicker" id="chapter-kicker-3">AI Decision / Feedback</p>
-                <h3 id="chapter-title-3">Feedback Loop</h3>
+                <p class="chapter-kicker" id="chapter-kicker-3">Desktop Utility / Workflow</p>
+                <h3 id="chapter-title-3">TokenScope</h3>
                 <p id="chapter-body-3">
-                  把 prompt、版本、結果與人類判斷編成一塊可操作的 fabric，讓 AI 工具更像產品而不是實驗拼裝。
+                  A macOS menubar companion for Claude.ai and Codex usage tracking, combining local session parsing, thresholds, notifications, and a detachable utility window.
                 </p>
               </article>
 
               <article class="film-chapter chapter-approach" id="scene-approach" data-scene="approach">
                 <div class="chapter-index">04</div>
-                <p class="chapter-kicker" data-i18n="chapters.approach.kicker">Closed Loop</p>
+                <p class="chapter-kicker" data-i18n="chapters.approach.kicker">Build Method</p>
                 <h3 data-i18n="chapters.approach.title">
-                  資料不只被展示，它會回到製程與工具決策裡
+                  我喜歡把複雜領域壓成可理解、可維護、可交付的產品骨架
                 </h3>
                 <div class="approach-notes">
                   <div class="approach-note">
-                    <strong data-i18n="approach.items.0.title">Abstract technical language</strong>
+                    <strong data-i18n="approach.items.0.title">Product before demo</strong>
                     <p data-i18n="approach.items.0.body">
-                      半導體、資料與 AI 的技術背景被轉成抽象而精密的視覺語言，而不是直接貼上工業素材。
+                      我在意的是功能怎麼被長期擴充，而不是一次性的展示效果。
                     </p>
                   </div>
                   <div class="approach-note">
-                    <strong data-i18n="approach.items.1.title">Product-level pacing</strong>
+                    <strong data-i18n="approach.items.1.title">Systems with real operators</strong>
                     <p data-i18n="approach.items.1.body">
-                      重點不是畫面裝飾，而是資訊被理解的順序、切換的節奏、以及決策怎麼被承接。
+                      不只是把資料畫出來，而是讓人真的能沿著介面做判斷與操作。
                     </p>
                   </div>
                   <div class="approach-note">
-                    <strong data-i18n="approach.items.2.title">Exhibit over template</strong>
+                    <strong data-i18n="approach.items.2.title">AI as leverage, not mystery</strong>
                     <p data-i18n="approach.items.2.body">
-                      每個系統都被當成值得檢視的展件，而不是落回常見的個人網站模板。
+                      我會用 AI 加速開發，但前提是每個架構取捨與程式碼結果都必須能被自己解釋。
                     </p>
                   </div>
                 </div>
@@ -207,16 +221,71 @@
 
       <footer class="site-footer" id="archive">
         <div class="footer-copy">
-          <p class="section-kicker" data-i18n="footer.kicker">Exhibit Index</p>
+          <p class="section-kicker" data-i18n="footer.kicker">Featured Work</p>
           <h2 data-i18n="footer.title">
-            作品內容先留在後台，這裡暫時作為一個冷靜的 calibration bay：先把半導體訊號、資料判讀與 AI 回饋的觀看節奏調準。
+            目前先收斂成兩個代表作：一個是面向廠務與營運端的 Web 3D 數位孿生，一個是面向日常工作流的桌面監控工具。
           </h2>
         </div>
 
-        <div class="footer-actions">
-          <span class="footer-chip">Calibration Bay</span>
-          <span class="footer-chip">Projects Backstage</span>
-          <span class="footer-chip">Signal System</span>
+        <div class="project-grid">
+          <article class="project-card project-card-primary">
+            <p class="project-card-kicker" data-i18n="projects.twin.kicker">Web 3D / Digital Twin</p>
+            <h3 data-i18n="projects.twin.title">Semiconductor Digital Twin</h3>
+            <p data-i18n="projects.twin.body">
+              IFC-first viewer with federated models, spatial tree, category layer controls, telemetry-driven color state, and an operator-first dashboard.
+            </p>
+            <div class="project-tags">
+              <span>Three.js</span>
+              <span>IFC</span>
+              <span>TypeScript</span>
+              <span>WebSocket</span>
+            </div>
+            <div class="project-links">
+              <a
+                class="project-link primary"
+                href="https://z12128082.github.io/semiconductor-digital-twin/"
+                target="_blank"
+                rel="noreferrer"
+                data-i18n="buttons.liveDemo"
+              >
+                Live Demo
+              </a>
+              <a
+                class="project-link"
+                href="https://github.com/z12128082/semiconductor-digital-twin"
+                target="_blank"
+                rel="noreferrer"
+                data-i18n="buttons.githubRepo"
+              >
+                GitHub
+              </a>
+            </div>
+          </article>
+
+          <article class="project-card">
+            <p class="project-card-kicker" data-i18n="projects.token.kicker">Desktop Utility / Workflow Tool</p>
+            <h3 data-i18n="projects.token.title">TokenScope</h3>
+            <p data-i18n="projects.token.body">
+              A macOS menubar companion for Claude.ai and Codex usage tracking, built around local log parsing, thresholds, notifications, and a detached utility window.
+            </p>
+            <div class="project-tags">
+              <span>Electron</span>
+              <span>Claude</span>
+              <span>Codex</span>
+              <span>Desktop</span>
+            </div>
+            <div class="project-links">
+              <a
+                class="project-link"
+                href="https://github.com/z12128082/tokenscope"
+                target="_blank"
+                rel="noreferrer"
+                data-i18n="buttons.githubRepo"
+              >
+                GitHub
+              </a>
+            </div>
+          </article>
         </div>
       </footer>
     </div>
