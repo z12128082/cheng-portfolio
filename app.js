@@ -6,10 +6,7 @@ const translations = {
       title: "Wafer Signal Exhibit",
       subtitle: "Process to Decision"
     },
-    nav: {
-      systems: "場景",
-      archive: "索引"
-    },
+    nav: {},
     opening: {
       kicker: "Wafer Signal Cinema",
       title:
@@ -49,11 +46,6 @@ const translations = {
             "內容先保持為展場框架，重點放在訊號如何被閱讀、校準與推進，而不是先排成作品卡片。"
         }
       ]
-    },
-    footer: {
-      kicker: "Exhibit Index",
-      title:
-        "作品內容先留在後台，這裡暫時作為一個冷靜的 calibration bay：先把半導體訊號、資料判讀與 AI 回饋的觀看節奏調準。"
     }
   },
   en: {
@@ -61,10 +53,7 @@ const translations = {
       title: "Wafer Signal Exhibit",
       subtitle: "Process to Decision"
     },
-    nav: {
-      systems: "Scenes",
-      archive: "Index"
-    },
+    nav: {},
     opening: {
       kicker: "Wafer Signal Cinema",
       title:
@@ -104,11 +93,6 @@ const translations = {
             "The content stays in an exhibit framework for now, focused on how signals are read, calibrated, and advanced before project cards appear."
         }
       ]
-    },
-    footer: {
-      kicker: "Exhibit Index",
-      title:
-        "Project content stays backstage for now. This area works as a calm calibration bay, tuning the viewing rhythm for semiconductor signals, data interpretation, and AI feedback."
     }
   }
 };
@@ -531,9 +515,9 @@ Object.assign(translations.en.brand, {
 });
 
 translations.zh.nav.work = "作品";
-translations.zh.nav.featured = "精選";
+translations.zh.nav.featured = "方法";
 translations.en.nav.work = "Work";
-translations.en.nav.featured = "Featured";
+translations.en.nav.featured = "Method";
 
 Object.assign(translations.zh.opening, {
   kicker: "Product Engineering Portfolio",
@@ -601,83 +585,19 @@ translations.en.approach.items = [
   }
 ];
 
-Object.assign(translations.zh.footer, {
-  kicker: "Featured Work",
-  title:
-    "目前先收斂成兩個代表作：一個是面向廠務與營運端的 Web 3D 數位孿生，一個是面向日常工作流的桌面監控工具。"
-});
-Object.assign(translations.en.footer, {
-  kicker: "Featured Work",
-  title:
-    "For now the portfolio narrows down to two representative projects: a Web 3D operational digital twin and a desktop monitoring tool for day-to-day workflows."
-});
-
 translations.zh.buttons = {
-  viewProjects: "看作品",
+  viewProjects: "看主展示",
   githubProfile: "GitHub 個人頁",
   liveDemo: "線上展示",
   githubRepo: "GitHub Repo",
   privateRepo: "Private repo"
 };
 translations.en.buttons = {
-  viewProjects: "View Projects",
+  viewProjects: "View Work",
   githubProfile: "GitHub Profile",
   liveDemo: "Live Demo",
   githubRepo: "GitHub Repo",
   privateRepo: "Private repo"
-};
-
-translations.zh.projects = {
-  twin: {
-    kicker: "Web 3D / Digital Twin",
-    title: "Semiconductor Digital Twin",
-    media: "Live IFC viewer",
-    body:
-      "IFC-first viewer，結合 federated models、spatial tree、category layer controls 與 telemetry-driven 3D state，朝 operator-facing 產品核心去做。",
-    points: [
-      "可載入 bundled/local IFC，並管理多模型與 category layers。",
-      "Telemetry 會直接改變 3D 狀態、告警與 dashboard 指標。",
-      "以可演進的產品核心設計，而不是一次性的 viewer 場景。"
-    ]
-  },
-  token: {
-    kicker: "Desktop Utility / Workflow Tool",
-    title: "TokenScope",
-    media: "Desktop utility window",
-    body:
-      "追蹤 Claude.ai 與 Codex 使用量的 macOS menubar 工具，包含本機 session parsing、threshold 通知、以及可分離的 utility window。",
-    points: [
-      "從本機 session 追蹤 Claude 與 Codex 的使用狀態。",
-      "呈現 limits、reset window、趨勢與專案活動。",
-      "以日常高頻使用為核心，放在 macOS menubar 工作流裡。"
-    ]
-  }
-};
-translations.en.projects = {
-  twin: {
-    kicker: "Web 3D / Digital Twin",
-    title: "Semiconductor Digital Twin",
-    media: "Live IFC viewer",
-    body:
-      "An IFC-first viewer that combines federated models, a spatial tree, category layer controls, and telemetry-driven 3D state into an operator-facing product core.",
-    points: [
-      "Loads bundled/local IFC while keeping models and category layers manageable.",
-      "Telemetry directly changes 3D state, alerts, and dashboard metrics.",
-      "Designed as an extensible product core, not a one-off viewer scene."
-    ]
-  },
-  token: {
-    kicker: "Desktop Utility / Workflow Tool",
-    title: "TokenScope",
-    media: "Desktop utility window",
-    body:
-      "A macOS menubar companion for Claude.ai and Codex usage tracking, with local session parsing, threshold notifications, and a detachable utility window.",
-    points: [
-      "Tracks Claude and Codex usage from local sessions.",
-      "Surfaces limits, reset windows, trends, and project activity.",
-      "Designed for repeated daily use from the macOS menubar."
-    ]
-  }
 };
 
 translations.zh.showcases = {
@@ -733,7 +653,6 @@ translations.en.showcases = {
 for (const scene of scenes) {
   if (scene.id === "intro") {
     Object.assign(scene, {
-      rail: { zh: "Profile", en: "Profile" },
       label: { zh: "Profile 00", en: "Profile 00" },
       title: { zh: "Product Positioning", en: "Product Positioning" },
       description: {
@@ -750,7 +669,6 @@ for (const scene of scenes) {
 
   if (scene.id === "wafer-drift") {
     Object.assign(scene, {
-      rail: { zh: "Twin", en: "Twin" },
       label: { zh: "Project 01", en: "Project 01" },
       chapterKicker: {
         zh: "Featured Project / Web 3D",
@@ -771,7 +689,6 @@ for (const scene of scenes) {
 
   if (scene.id === "yield-constellation") {
     Object.assign(scene, {
-      rail: { zh: "Ops", en: "Ops" },
       label: { zh: "Project 01B", en: "Project 01B" },
       chapterKicker: {
         zh: "Realtime Ops / Product Layer",
@@ -792,7 +709,6 @@ for (const scene of scenes) {
 
   if (scene.id === "prompt-fabric") {
     Object.assign(scene, {
-      rail: { zh: "Tool", en: "Tool" },
       label: { zh: "Project 02", en: "Project 02" },
       chapterKicker: {
         zh: "Desktop Utility / Workflow",
@@ -813,7 +729,6 @@ for (const scene of scenes) {
 
   if (scene.id === "approach") {
     Object.assign(scene, {
-      rail: { zh: "Method", en: "Method" },
       label: { zh: "Method 04", en: "Method 04" },
       title: { zh: "Build Method", en: "Build Method" },
       description: {
@@ -842,11 +757,7 @@ const state = {
   lockPulse: 0,
   snapTimer: null,
   lockTimer: null,
-  jumpFrame: null,
-  forcedSceneId: null,
-  savedScrollBehavior: "",
   isSnapping: false,
-  isJumping: false,
   three: null
 };
 
@@ -869,7 +780,6 @@ const chapter3Kicker = document.getElementById("chapter-kicker-3");
 const chapter3Title = document.getElementById("chapter-title-3");
 const chapter3Body = document.getElementById("chapter-body-3");
 const sceneNodes = Array.from(document.querySelectorAll(".film-chapter"));
-const railItems = Array.from(document.querySelectorAll("[data-rail-scene]"));
 const productShowcases = Array.from(document.querySelectorAll("[data-showcase]"));
 const showcaseSceneIds = new Set(
   productShowcases.map((showcase) => showcase.dataset.showcase)
@@ -936,14 +846,6 @@ function setStaticTranslations() {
     );
   });
 
-  railItems.forEach((item) => {
-    const scene = getScene(item.dataset.railScene);
-    const titleNode = item.querySelector("strong");
-    if (titleNode && scene.rail) {
-      titleNode.textContent = scene.rail[state.locale];
-    }
-  });
-
   updateHud(getScene(state.activeSceneId));
 }
 
@@ -951,9 +853,6 @@ function updateHud(scene) {
   hudKicker.textContent = scene.label[state.locale];
   hudTitle.textContent = scene.title[state.locale];
   hudDescription.textContent = scene.description[state.locale];
-  railItems.forEach((item) => {
-    item.classList.toggle("is-active", item.dataset.railScene === scene.id);
-  });
   hudMetrics.innerHTML = scene.metrics
     .map(
       (metric) => `
@@ -993,13 +892,6 @@ function setupEventListeners() {
   window.addEventListener("pointermove", (event) => {
     state.pointer.x = event.clientX;
     state.pointer.y = event.clientY;
-  });
-
-  railItems.forEach((item) => {
-    item.addEventListener("click", (event) => {
-      event.preventDefault();
-      navigateToScene(item.dataset.railScene);
-    });
   });
 
   window.addEventListener("scroll", onScroll, { passive: true });
@@ -1113,71 +1005,6 @@ function getSceneSnapY(node) {
         window.innerHeight * 0.42
     )
   );
-}
-
-function finishSceneJump(sceneId) {
-  window.cancelAnimationFrame(state.jumpFrame);
-  state.jumpFrame = null;
-
-  const targetNode =
-    sceneNodes.find((node) => node.dataset.scene === sceneId) || sceneNodes[0];
-  window.scrollTo(0, getSceneSnapY(targetNode));
-
-  state.forcedSceneId = null;
-  state.isJumping = false;
-  state.isSnapping = false;
-  document.documentElement.classList.remove("is-scene-jumping", "is-scene-snapping");
-  setActiveScene(sceneId);
-  onScroll();
-  document.documentElement.style.scrollBehavior = state.savedScrollBehavior;
-  state.savedScrollBehavior = "";
-  window.clearTimeout(state.snapTimer);
-  pulseSceneLock();
-}
-
-function navigateToScene(sceneId) {
-  const targetNode =
-    sceneNodes.find((node) => node.dataset.scene === sceneId) || sceneNodes[0];
-  const targetY = getSceneSnapY(targetNode);
-  const startY = window.scrollY;
-  const distance = targetY - startY;
-
-  window.clearTimeout(state.snapTimer);
-  window.cancelAnimationFrame(state.jumpFrame);
-  if (!state.isJumping) {
-    state.savedScrollBehavior = document.documentElement.style.scrollBehavior;
-  }
-  document.documentElement.style.scrollBehavior = "auto";
-  state.forcedSceneId = sceneId;
-  state.isJumping = true;
-  state.isSnapping = true;
-  document.documentElement.classList.add("is-scene-jumping", "is-scene-snapping");
-  setActiveScene(sceneId);
-  onScroll();
-  pulseSceneLock();
-
-  if (state.reducedMotion || Math.abs(distance) < 4) {
-    finishSceneJump(sceneId);
-    return;
-  }
-
-  const duration = clamp(Math.abs(distance) * 0.26, 560, 920);
-  const startTime = window.performance.now();
-
-  function step(now) {
-    const progress = clamp((now - startTime) / duration, 0, 1);
-    const eased = easeCinematic(progress);
-    window.scrollTo(0, Math.round(startY + distance * eased));
-
-    if (progress < 1) {
-      state.jumpFrame = window.requestAnimationFrame(step);
-      return;
-    }
-
-    finishSceneJump(sceneId);
-  }
-
-  state.jumpFrame = window.requestAnimationFrame(step);
 }
 
 function pulseSceneLock() {
@@ -2166,7 +1993,7 @@ function resizeThreeScene() {
 }
 
 function onScroll() {
-  let bestScene = state.forcedSceneId ? getScene(state.forcedSceneId) : scenes[0];
+  let bestScene = scenes[0];
   let bestProgress = -1;
   let bestDistance = Number.POSITIVE_INFINITY;
   let activeChapterState = null;
@@ -2208,37 +2035,30 @@ function onScroll() {
     };
   });
 
-  if (!state.forcedSceneId) {
-    const currentChapterState =
-      chapterStates.find(
-        (chapterState) => chapterState.node.dataset.scene === state.activeSceneId
-      ) || chapterStates[0];
+  const currentChapterState =
+    chapterStates.find(
+      (chapterState) => chapterState.node.dataset.scene === state.activeSceneId
+    ) || chapterStates[0];
 
-    chapterStates.forEach((chapterState) => {
-      if (
-        chapterState.progress > bestProgress ||
-        (chapterState.progress === bestProgress &&
-          chapterState.distance < bestDistance)
-      ) {
-        bestProgress = chapterState.progress;
-        bestDistance = chapterState.distance;
-        bestScene = getScene(chapterState.node.dataset.scene);
-        activeChapterState = chapterState;
-      }
-    });
-
+  chapterStates.forEach((chapterState) => {
     if (
-      activeChapterState.progress < sceneSwitchProgress &&
-      currentChapterState.progress > sceneReleaseProgress
+      chapterState.progress > bestProgress ||
+      (chapterState.progress === bestProgress &&
+        chapterState.distance < bestDistance)
     ) {
-      bestScene = getScene(state.activeSceneId);
-      activeChapterState = currentChapterState;
+      bestProgress = chapterState.progress;
+      bestDistance = chapterState.distance;
+      bestScene = getScene(chapterState.node.dataset.scene);
+      activeChapterState = chapterState;
     }
-  } else {
-    activeChapterState =
-      chapterStates.find(
-        (chapterState) => chapterState.node.dataset.scene === state.forcedSceneId
-      ) || chapterStates[0];
+  });
+
+  if (
+    activeChapterState.progress < sceneSwitchProgress &&
+    currentChapterState.progress > sceneReleaseProgress
+  ) {
+    bestScene = getScene(state.activeSceneId);
+    activeChapterState = currentChapterState;
   }
 
   setActiveScene(bestScene.id);
@@ -2368,8 +2188,8 @@ function animateThreeScene(timeMs) {
   const yRatio = state.pointer.y / window.innerHeight - 0.5;
   state.lockPulse = lerp(state.lockPulse, 0, 0.095);
   const lockPulse = state.lockPulse;
-  const sceneEase = state.isJumping ? 0.12 : 0.072;
-  const visualEase = state.isJumping ? 0.12 : 0.078;
+  const sceneEase = 0.072;
+  const visualEase = 0.078;
 
   currentCamera.x = lerp(currentCamera.x, targetScene.camera.x, sceneEase);
   currentCamera.y = lerp(currentCamera.y, targetScene.camera.y, sceneEase);

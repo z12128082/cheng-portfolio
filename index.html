@@ -28,7 +28,7 @@
 
         <nav class="site-nav" aria-label="Primary">
           <a href="#film" data-i18n="nav.work">Work</a>
-          <a href="#archive" data-i18n="nav.featured">Featured</a>
+          <a href="#scene-approach" data-i18n="nav.featured">Method</a>
         </nav>
 
         <div class="header-tools">
@@ -68,7 +68,7 @@
               我做 Web 3D、即時資料、桌面工具與 operator-facing interfaces。這個首頁先收斂成兩個代表作：半導體數位孿生與 TokenScope。
             </p>
             <div class="opening-actions">
-              <a class="hero-button primary" href="#archive" data-i18n="buttons.viewProjects">
+              <a class="hero-button primary" href="#scene-wafer-drift" data-i18n="buttons.viewProjects">
                 View Projects
               </a>
               <a
@@ -122,6 +122,26 @@
                         <li data-step="2" data-i18n="showcases.twin.steps.2">Telemetry alert state</li>
                         <li data-step="3" data-i18n="showcases.twin.steps.3">Ops dashboard readout</li>
                       </ol>
+                      <div class="showcase-links">
+                        <a
+                          class="showcase-link primary"
+                          href="https://z12128082.github.io/semiconductor-digital-twin/"
+                          target="_blank"
+                          rel="noreferrer"
+                          data-i18n="buttons.liveDemo"
+                        >
+                          Live Demo
+                        </a>
+                        <a
+                          class="showcase-link"
+                          href="https://github.com/z12128082/semiconductor-digital-twin"
+                          target="_blank"
+                          rel="noreferrer"
+                          data-i18n="buttons.githubRepo"
+                        >
+                          GitHub
+                        </a>
+                      </div>
                     </div>
                   </article>
 
@@ -154,6 +174,11 @@
                         <li data-step="2" data-i18n="showcases.token.steps.2">Claude / Codex switch</li>
                         <li data-step="3" data-i18n="showcases.token.steps.3">Live menubar status</li>
                       </ol>
+                      <div class="showcase-links">
+                        <span class="showcase-link is-muted" data-i18n="buttons.privateRepo">
+                          Private repo
+                        </span>
+                      </div>
                     </div>
                   </article>
                 </div>
@@ -174,29 +199,6 @@
                   <div class="stage-axis stage-axis-left">SYSTEMS</div>
                   <div class="stage-axis stage-axis-right">OPERATORS</div>
                 </div>
-
-                <nav class="scene-rail" aria-label="Scene rail">
-                  <a class="scene-rail-item is-active" href="#scene-intro" data-rail-scene="intro">
-                    <span>00</span>
-                    <strong>Profile</strong>
-                  </a>
-                  <a class="scene-rail-item" href="#scene-wafer-drift" data-rail-scene="wafer-drift">
-                    <span>01</span>
-                    <strong>Twin</strong>
-                  </a>
-                  <a class="scene-rail-item" href="#scene-yield-constellation" data-rail-scene="yield-constellation">
-                    <span>02</span>
-                    <strong>Ops</strong>
-                  </a>
-                  <a class="scene-rail-item" href="#scene-prompt-fabric" data-rail-scene="prompt-fabric">
-                    <span>03</span>
-                    <strong>Tool</strong>
-                  </a>
-                  <a class="scene-rail-item" href="#scene-approach" data-rail-scene="approach">
-                    <span>04</span>
-                    <strong>Method</strong>
-                  </a>
-                </nav>
 
                 <div class="stage-progress" aria-hidden="true">
                   <span></span>
@@ -283,112 +285,6 @@
           </div>
         </section>
       </main>
-
-      <footer class="site-footer" id="archive">
-        <div class="footer-copy">
-          <p class="section-kicker" data-i18n="footer.kicker">Featured Work</p>
-          <h2 data-i18n="footer.title">
-            目前先收斂成兩個代表作：一個是面向廠務與營運端的 Web 3D 數位孿生，一個是面向日常工作流的桌面監控工具。
-          </h2>
-        </div>
-
-        <div class="project-grid">
-          <article class="project-card project-card-primary">
-            <a
-              class="project-media"
-              href="https://z12128082.github.io/semiconductor-digital-twin/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Open Semiconductor Digital Twin live demo"
-            >
-              <img
-                src="./assets/project-semiconductor-digital-twin.png"
-                alt="Semiconductor Digital Twin viewer showing an IFC model, telemetry status, and operations dashboard"
-                loading="lazy"
-              />
-              <span class="project-media-caption">
-                <span class="project-live-dot"></span>
-                <span data-i18n="projects.twin.media">Live IFC viewer</span>
-              </span>
-            </a>
-            <div class="project-content">
-              <p class="project-card-kicker" data-i18n="projects.twin.kicker">Web 3D / Digital Twin</p>
-              <h3 data-i18n="projects.twin.title">Semiconductor Digital Twin</h3>
-              <p data-i18n="projects.twin.body">
-                IFC-first viewer with federated models, spatial tree, category layer controls, telemetry-driven color state, and an operator-first dashboard.
-              </p>
-              <ul class="project-proof-list">
-                <li data-i18n="projects.twin.points.0">Loads bundled/local IFC and keeps model layers manageable.</li>
-                <li data-i18n="projects.twin.points.1">Telemetry changes 3D state, alerts, and dashboard metrics.</li>
-                <li data-i18n="projects.twin.points.2">Built as a product core, not a one-off viewer scene.</li>
-              </ul>
-              <div class="project-tags">
-                <span>Three.js</span>
-                <span>IFC</span>
-                <span>TypeScript</span>
-                <span>WebSocket</span>
-              </div>
-              <div class="project-links">
-                <a
-                  class="project-link primary"
-                  href="https://z12128082.github.io/semiconductor-digital-twin/"
-                  target="_blank"
-                  rel="noreferrer"
-                  data-i18n="buttons.liveDemo"
-                >
-                  Live Demo
-                </a>
-                <a
-                  class="project-link"
-                  href="https://github.com/z12128082/semiconductor-digital-twin"
-                  target="_blank"
-                  rel="noreferrer"
-                  data-i18n="buttons.githubRepo"
-                >
-                  GitHub
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-media is-compact">
-              <img
-                src="./assets/project-tokenscope.png"
-                alt="TokenScope macOS menubar utility showing Claude usage rings and live status"
-                loading="lazy"
-              />
-              <span class="project-media-caption">
-                <span class="project-live-dot"></span>
-                <span data-i18n="projects.token.media">Desktop utility window</span>
-              </span>
-            </div>
-            <div class="project-content">
-              <p class="project-card-kicker" data-i18n="projects.token.kicker">Desktop Utility / Workflow Tool</p>
-              <h3 data-i18n="projects.token.title">TokenScope</h3>
-              <p data-i18n="projects.token.body">
-                A macOS menubar companion for Claude.ai and Codex usage tracking, built around local log parsing, thresholds, notifications, and a detached utility window.
-              </p>
-              <ul class="project-proof-list">
-                <li data-i18n="projects.token.points.0">Tracks Claude and Codex usage from local sessions.</li>
-                <li data-i18n="projects.token.points.1">Surfaces limits, reset windows, trends, and project activity.</li>
-                <li data-i18n="projects.token.points.2">Designed for repeated daily use from the macOS menubar.</li>
-              </ul>
-              <div class="project-tags">
-                <span>Electron</span>
-                <span>Claude</span>
-                <span>Codex</span>
-                <span>Desktop</span>
-              </div>
-              <div class="project-links">
-                <span class="project-link project-link-disabled" data-i18n="buttons.privateRepo">
-                  Private repo
-                </span>
-              </div>
-            </div>
-          </article>
-        </div>
-      </footer>
     </div>
 
     <script type="module" src="./app.js"></script>
