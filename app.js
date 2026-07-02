@@ -680,6 +680,56 @@ translations.en.projects = {
   }
 };
 
+translations.zh.showcases = {
+  twin: {
+    eyebrow: "Digital Twin Viewer",
+    label: "Project 01 / Web 3D",
+    title: "IFC 到營運數位孿生",
+    steps: [
+      "IFC 模型載入",
+      "模型與 category layer 狀態",
+      "Telemetry 告警狀態",
+      "Ops dashboard 即時讀值"
+    ]
+  },
+  token: {
+    eyebrow: "TokenScope Utility",
+    label: "Project 02 / Desktop Tool",
+    title: "一眼看懂使用量狀態",
+    steps: [
+      "Session usage ring",
+      "Reset 與 remaining 狀態",
+      "Claude / Codex 切換",
+      "Menubar live 狀態"
+    ]
+  }
+};
+
+translations.en.showcases = {
+  twin: {
+    eyebrow: "Digital Twin Viewer",
+    label: "Project 01 / Web 3D",
+    title: "IFC to operational twin",
+    steps: [
+      "IFC model loaded",
+      "Model and category layer state",
+      "Telemetry alert state",
+      "Ops dashboard readout"
+    ]
+  },
+  token: {
+    eyebrow: "TokenScope Utility",
+    label: "Project 02 / Desktop Tool",
+    title: "Usage state at a glance",
+    steps: [
+      "Session usage ring",
+      "Reset and remaining state",
+      "Claude / Codex switch",
+      "Live menubar status"
+    ]
+  }
+};
+
 for (const scene of scenes) {
   if (scene.id === "intro") {
     Object.assign(scene, {
@@ -820,8 +870,13 @@ const chapter3Title = document.getElementById("chapter-title-3");
 const chapter3Body = document.getElementById("chapter-body-3");
 const sceneNodes = Array.from(document.querySelectorAll(".film-chapter"));
 const railItems = Array.from(document.querySelectorAll("[data-rail-scene]"));
+const productShowcases = Array.from(document.querySelectorAll("[data-showcase]"));
+const showcaseSceneIds = new Set(
+  productShowcases.map((showcase) => showcase.dataset.showcase)
+);
 const sceneSwitchProgress = 0.34;
 const sceneReleaseProgress = 0.08;
+const showcaseStepCount = 4;
 
 function t(path) {
   return path.split(".").reduce((current, key) => current?.[key], translations[state.locale]);
@@ -976,6 +1031,77 @@ function easeCinematic(value) {
     : 1 - Math.pow(-2 * value + 2, 3) * 0.5;
 }
 
+function getChapterScrubProgress(node) {
+  const rect = node.getBoundingClientRect();
+  const startY = window.innerHeight * 0.82;
+  const endY = -rect.height * 0.62;
+  return clamp((startY - rect.top) / (startY - endY), 0, 1);
+}
+
+function updateProductShowcases(chapterStates) {
+  let productPresence = 0;
+
+  productShowcases.forEach((showcase) => {
+    const sceneId = showcase.dataset.showcase;
+    const chapterState = chapterStates.find(
+      (item) => item.node.dataset.scene === sceneId
+    );
+
+    if (!chapterState) {
+      return;
+    }
+
+    const visibility = easeInOut(clamp(chapterState.progress * 1.16, 0, 1));
+    const scrubProgress = state.reducedMotion
+      ? 0.58
+      : getChapterScrubProgress(chapterState.node);
+    const stepProgress = clamp((scrubProgress - 0.32) / 0.58, 0, 1);
+    const stepIndex = Math.min(
+      showcaseStepCount - 1,
+      Math.floor(stepProgress * showcaseStepCount)
+    );
+    const introOffset = (1 - visibility) * 52 * chapterState.direction;
+    const isTokenScope = sceneId === "prompt-fabric";
+    const mediaScale = isTokenScope
+      ? 1 + scrubProgress * 0.035
+      : 1.02 + scrubProgress * 0.11;
+    const mediaX = isTokenScope
+      ? lerp(0, 0.8, scrubProgress)
+      : lerp(0, -5.8, scrubProgress);
+    const mediaY = isTokenScope
+      ? lerp(0, -1.6, scrubProgress)
+      : lerp(0, -4.2, scrubProgress);
+
+    showcase.classList.toggle("is-visible", visibility > 0.08);
+    showcase.style.setProperty("--showcase-opacity", String(visibility));
+    showcase.style.setProperty("--showcase-y", `${introOffset}px`);
+    showcase.style.setProperty("--showcase-scale", String(0.94 + visibility * 0.06));
+    showcase.style.setProperty("--showcase-progress", String(scrubProgress));
+    showcase.style.setProperty("--showcase-media-scale", String(mediaScale));
+    showcase.style.setProperty("--showcase-media-x", `${mediaX}%`);
+    showcase.style.setProperty("--showcase-media-y", `${mediaY}%`);
+    showcase.dataset.activeStep = String(stepIndex);
+
+    showcase.querySelectorAll("[data-step]").forEach((item) => {
+      item.classList.toggle("is-active", Number(item.dataset.step) === stepIndex);
+      item.classList.toggle("is-complete", Number(item.dataset.step) < stepIndex);
+    });
+    showcase.querySelectorAll("[data-focus-step]").forEach((item) => {
+      item.classList.toggle(
+        "is-active",
+        Number(item.dataset.focusStep) === stepIndex
+      );
+    });
+
+    productPresence = Math.max(productPresence, visibility);
+  });
+
+  document.documentElement.style.setProperty(
+    "--product-presence",
+    String(productPresence)
+  );
+}
+
 function getSceneSnapY(node) {
   const rect = node.getBoundingClientRect();
   return Math.max(
@@ -1064,7 +1190,12 @@ function pulseSceneLock() {
 }
 
 function scheduleSceneSnap() {
-  if (state.reducedMotion || state.isSnapping || window.innerWidth < 760) {
+  if (
+    state.reducedMotion ||
+    state.isSnapping ||
+    window.innerWidth < 760 ||
+    showcaseSceneIds.has(state.activeSceneId)
+  ) {
     return;
   }
 
@@ -2142,6 +2273,7 @@ function onScroll() {
     node.style.setProperty("--chapter-line-origin", motion.lineOrigin);
   });
 
+  updateProductShowcases(chapterStates);
   scheduleSceneSnap();
 }
 
