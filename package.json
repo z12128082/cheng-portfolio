@@ -1,0 +1,16 @@
+{
+  "name": "cheng-portfolio",
+  "version": "1.0.0",
+  "description": "Immersive side project exhibit with scroll-driven 3D scenes.",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 4173",
+    "start": "python3 -m http.server 4173"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "three": "^0.185.0"
+  }
+}

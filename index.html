@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Wafer Signal Exhibit | Process to Decision</title>
+    <meta
+      name="description"
+      content="A cinematic semiconductor exhibit where wafer alignment, pattern transfer, inspection maps, and AI decision feedback unfold through scroll-driven 3D scenes."
+    />
+    <meta name="theme-color" content="#081017" />
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css?v=16" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="site-header">
+        <a class="brand" href="#top" aria-label="Go to top">
+          <span class="brand-mark"></span>
+          <span class="brand-copy">
+            <strong data-i18n="brand.title">Wafer Signal Exhibit</strong>
+            <span data-i18n="brand.subtitle">Process to Decision</span>
+          </span>
+        </a>
+
+        <nav class="site-nav" aria-label="Primary">
+          <a href="#film" data-i18n="nav.systems">Scenes</a>
+          <a href="#archive" data-i18n="nav.archive">Index</a>
+        </nav>
+
+        <div class="header-tools">
+          <div class="lang-switch" role="group" aria-label="Language switcher">
+            <button
+              class="lang-button is-active"
+              type="button"
+              data-locale-trigger="zh"
+            >
+              中文
+            </button>
+            <button
+              class="lang-button"
+              type="button"
+              data-locale-trigger="en"
+            >
+              EN
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="opening">
+          <div class="opening-copy">
+            <p class="section-kicker" data-i18n="opening.kicker">
+              Wafer Signal Cinema
+            </p>
+            <h1 id="opening-title">
+              <span class="headline-line">WAFER</span>
+              <span class="headline-line">SIGNAL</span>
+              <span class="headline-caption">
+                從晶圓對位、圖形轉移、檢測、良率地圖，到 AI 決策回饋的抽象演示。
+              </span>
+            </h1>
+            <p class="opening-summary" id="opening-summary">
+              這不是一片漂亮晶圓的裝飾，而是從單一製程訊號擴展成 die grid、良率地圖、批次比較與決策回饋的 3D 展場。
+            </p>
+          </div>
+        </section>
+
+        <section class="film-section" id="film">
+          <div class="film-layout">
+            <div class="film-stage-wrap">
+              <div class="film-stage">
+                <canvas id="hero-webgl" class="hero-webgl" aria-hidden="true"></canvas>
+                <div class="film-vignette film-vignette-a" aria-hidden="true"></div>
+                <div class="film-vignette film-vignette-b" aria-hidden="true"></div>
+                <div class="film-shadow" aria-hidden="true"></div>
+                <div class="stage-chrome" aria-hidden="true">
+                  <div class="stage-topline"><span></span></div>
+                  <span class="stage-corner stage-corner-tl"></span>
+                  <span class="stage-corner stage-corner-tr"></span>
+                  <span class="stage-corner stage-corner-bl"></span>
+                  <span class="stage-corner stage-corner-br"></span>
+                  <div class="stage-readout">
+                    <span>ON</span>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                  </div>
+                  <div class="stage-logo">WAFER SIGNAL</div>
+                  <div class="stage-axis stage-axis-left">PROCESS</div>
+                  <div class="stage-axis stage-axis-right">DECISION</div>
+                </div>
+
+                <nav class="scene-rail" aria-label="Scene rail">
+                  <a class="scene-rail-item is-active" href="#scene-intro" data-rail-scene="intro">
+                    <span>00</span>
+                    <strong>Alignment</strong>
+                  </a>
+                  <a class="scene-rail-item" href="#scene-wafer-drift" data-rail-scene="wafer-drift">
+                    <span>01</span>
+                    <strong>Pattern</strong>
+                  </a>
+                  <a class="scene-rail-item" href="#scene-yield-constellation" data-rail-scene="yield-constellation">
+                    <span>02</span>
+                    <strong>Yield</strong>
+                  </a>
+                  <a class="scene-rail-item" href="#scene-prompt-fabric" data-rail-scene="prompt-fabric">
+                    <span>03</span>
+                    <strong>Feedback</strong>
+                  </a>
+                  <a class="scene-rail-item" href="#scene-approach" data-rail-scene="approach">
+                    <span>04</span>
+                    <strong>Loop</strong>
+                  </a>
+                </nav>
+
+                <div class="stage-progress" aria-hidden="true">
+                  <span></span>
+                </div>
+
+                <div class="film-hud">
+                  <p class="film-hud-kicker" id="hud-kicker">Scene 01</p>
+                  <h2 id="hud-title">Pattern Transfer</h2>
+                  <p id="hud-description">
+                    曝光狹縫掃過晶圓，die blocks 像被顯影一樣逐步浮現。
+                  </p>
+                  <div class="hud-metrics" id="hud-metrics"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="film-track" id="film-track">
+              <article class="film-chapter chapter-intro" id="scene-intro" data-scene="intro">
+                <div class="chapter-index">00</div>
+                <p class="chapter-kicker" data-i18n="chapters.intro.kicker">Alignment</p>
+                <h3 data-i18n="chapters.intro.title">
+                  先讓晶圓被定位，讓座標系統找到可以被閱讀的起點
+                </h3>
+                <p data-i18n="chapters.intro.body">
+                  第一幕不是展示作品，而是建立 wafer notch、die grid、reference line 與量測基準。
+                </p>
+              </article>
+
+              <article class="film-chapter" id="scene-wafer-drift" data-scene="wafer-drift">
+                <div class="chapter-index">01</div>
+                <p class="chapter-kicker" id="chapter-kicker-1">Pattern Transfer / Drift</p>
+                <h3 id="chapter-title-1">Pattern Transfer</h3>
+                <p id="chapter-body-1">
+                  把 wafer-level signal、異常比較與 AI 輔助判讀導進同一個產品流裡，讓人沿著一個可追蹤的判斷路徑前進。
+                </p>
+              </article>
+
+              <article class="film-chapter" id="scene-yield-constellation" data-scene="yield-constellation">
+                <div class="chapter-index">02</div>
+                <p class="chapter-kicker" id="chapter-kicker-2">Inspection / Yield Map</p>
+                <h3 id="chapter-title-2">Inspection Map</h3>
+                <p id="chapter-body-2">
+                  不是報表美化，而是把 yield、event 與設備節點重新編排成一張可巡航的資料星圖。
+                </p>
+              </article>
+
+              <article class="film-chapter" id="scene-prompt-fabric" data-scene="prompt-fabric">
+                <div class="chapter-index">03</div>
+                <p class="chapter-kicker" id="chapter-kicker-3">AI Decision / Feedback</p>
+                <h3 id="chapter-title-3">Feedback Loop</h3>
+                <p id="chapter-body-3">
+                  把 prompt、版本、結果與人類判斷編成一塊可操作的 fabric，讓 AI 工具更像產品而不是實驗拼裝。
+                </p>
+              </article>
+
+              <article class="film-chapter chapter-approach" id="scene-approach" data-scene="approach">
+                <div class="chapter-index">04</div>
+                <p class="chapter-kicker" data-i18n="chapters.approach.kicker">Closed Loop</p>
+                <h3 data-i18n="chapters.approach.title">
+                  資料不只被展示，它會回到製程與工具決策裡
+                </h3>
+                <div class="approach-notes">
+                  <div class="approach-note">
+                    <strong data-i18n="approach.items.0.title">Abstract technical language</strong>
+                    <p data-i18n="approach.items.0.body">
+                      半導體、資料與 AI 的技術背景被轉成抽象而精密的視覺語言，而不是直接貼上工業素材。
+                    </p>
+                  </div>
+                  <div class="approach-note">
+                    <strong data-i18n="approach.items.1.title">Product-level pacing</strong>
+                    <p data-i18n="approach.items.1.body">
+                      重點不是畫面裝飾，而是資訊被理解的順序、切換的節奏、以及決策怎麼被承接。
+                    </p>
+                  </div>
+                  <div class="approach-note">
+                    <strong data-i18n="approach.items.2.title">Exhibit over template</strong>
+                    <p data-i18n="approach.items.2.body">
+                      每個系統都被當成值得檢視的展件，而不是落回常見的個人網站模板。
+                    </p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer" id="archive">
+        <div class="footer-copy">
+          <p class="section-kicker" data-i18n="footer.kicker">Exhibit Index</p>
+          <h2 data-i18n="footer.title">
+            作品內容先留在後台，這裡暫時作為一個冷靜的 calibration bay：先把半導體訊號、資料判讀與 AI 回饋的觀看節奏調準。
+          </h2>
+        </div>
+
+        <div class="footer-actions">
+          <span class="footer-chip">Calibration Bay</span>
+          <span class="footer-chip">Projects Backstage</span>
+          <span class="footer-chip">Signal System</span>
+        </div>
+      </footer>
+    </div>
+
+    <script type="module" src="./app.js?v=21"></script>
+  </body>
+</html>
