@@ -606,6 +606,10 @@ function setupEventListeners() {
 
   window.addEventListener("scroll", onScroll, { passive: true });
 
+  productShowcases.forEach((showcase) => {
+    showcase.addEventListener("pointerenter", () => stage?.pulse());
+  });
+
   window.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "touch") return;
     if (event.target.closest("a, button, input, .showcase-card")) return;
