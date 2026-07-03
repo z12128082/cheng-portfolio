@@ -413,7 +413,8 @@ const state = {
   lockTimer: null,
   isSnapping: false,
   lastScrollY: window.scrollY,
-  lastScrollDelta: 0
+  lastScrollDelta: 0,
+  lastScrollDirection: 0
 };
 
 let stage = null;
@@ -605,6 +606,18 @@ function setupEventListeners() {
   });
 
   window.addEventListener("scroll", onScroll, { passive: true });
+
+  // user input always wins: abort any pending or in-flight snap
+  const cancelSnapOnInput = () => {
+    window.clearTimeout(state.snapTimer);
+    if (state.isSnapping) {
+      state.isSnapping = false;
+      document.documentElement.classList.remove("is-scene-snapping");
+      window.scrollTo({ top: window.scrollY, behavior: "instant" });
+    }
+  };
+  window.addEventListener("wheel", cancelSnapOnInput, { passive: true });
+  window.addEventListener("touchmove", cancelSnapOnInput, { passive: true });
 
   productShowcases.forEach((showcase) => {
     showcase.addEventListener("pointerenter", () => stage?.pulse());
@@ -863,9 +876,19 @@ function scheduleSceneSnap() {
       sceneNodes.find((node) => node.dataset.scene === state.activeSceneId) ||
       sceneNodes[0];
     const targetY = getSceneSnapY(activeNode);
-    const delta = Math.abs(window.scrollY - targetY);
+    const diff = targetY - window.scrollY;
+    const distance = Math.abs(diff);
+    // never yank backwards against the direction the user was travelling
+    const againstTravel =
+      (state.lastScrollDirection > 0 && diff < -window.innerHeight * 0.06) ||
+      (state.lastScrollDirection < 0 && diff > window.innerHeight * 0.06);
 
-    if (delta < window.innerHeight * 0.34 && delta > 8) {
+    if (distance <= 8) {
+      pulseSceneLock();
+      return;
+    }
+
+    if (distance < window.innerHeight * 0.18 && !againstTravel) {
       state.isSnapping = true;
       document.documentElement.classList.add("is-scene-snapping");
       window.scrollTo({ top: targetY, behavior: "smooth" });
@@ -874,13 +897,8 @@ function scheduleSceneSnap() {
         document.documentElement.classList.remove("is-scene-snapping");
         pulseSceneLock();
       }, 520);
-      return;
     }
-
-    if (delta <= 8) {
-      pulseSceneLock();
-    }
-  }, 120);
+  }, 260);
 }
 
 function getChapterMotion(sceneId, progress, direction) {
@@ -983,6 +1001,9 @@ function getChapterMotion(sceneId, progress, direction) {
 function onScroll() {
   const scrollY = window.scrollY;
   state.lastScrollDelta = Math.abs(scrollY - state.lastScrollY);
+  if (scrollY !== state.lastScrollY) {
+    state.lastScrollDirection = Math.sign(scrollY - state.lastScrollY);
+  }
   state.lastScrollY = scrollY;
 
   let bestScene = scenes[0];
