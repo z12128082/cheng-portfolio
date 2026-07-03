@@ -1027,24 +1027,24 @@ function getShowcaseLayoutMetrics(isTokenScope, spotlightWidth) {
   const isCompactStage = viewportWidth <= 1100;
   const rightBase = isCompactStage
     ? isTokenScope
-      ? 128
-      : 118
+      ? 60
+      : 52
     : isTokenScope
-      ? clamp(viewportWidth * 0.16, 176, 250)
-      : clamp(viewportWidth * 0.14, 154, 228);
+      ? clamp(viewportWidth * 0.08, 72, 112)
+      : clamp(viewportWidth * 0.07, 64, 104);
   const baseWidth = isCompactStage
     ? isTokenScope
-      ? 500
-      : 640
+      ? 480
+      : 600
     : isTokenScope
       ? 520
       : 650;
   const maxWidth =
     viewportWidth *
-    (isCompactStage ? (isTokenScope ? 0.7 : 0.76) : isTokenScope ? 0.7 : 0.78);
+    (isCompactStage ? (isTokenScope ? 0.64 : 0.72) : isTokenScope ? 0.64 : 0.72);
   const width = Math.min(baseWidth + spotlightWidth, maxWidth);
   const currentCenter = viewportWidth - rightBase - width / 2;
-  const targetCenter = viewportWidth * (isTokenScope ? 0.5 : 0.45);
+  const targetCenter = currentCenter;
 
   return { currentCenter, targetCenter };
 }
@@ -1109,10 +1109,10 @@ function updateProductShowcases(chapterStates) {
       ? lerp(0, -1.6, stepProgress)
       : lerp(0, -4.2, stepProgress);
     const spotlightWidth = isTokenScope
-      ? spotlightProgress * 190
-      : spotlightProgress * 270;
-    const panelSize = 1 - spotlightProgress * 0.72;
-    const panelOpacity = 1 - spotlightProgress * 0.78;
+      ? spotlightProgress * 90
+      : spotlightProgress * 132;
+    const panelSize = 1;
+    const panelOpacity = 1;
 
     showcase.classList.toggle("is-visible", visibility > 0.08);
     showcase.classList.toggle("is-spotlight", spotlightProgress > 0.64);
@@ -1124,7 +1124,7 @@ function updateProductShowcases(chapterStates) {
     showcase.style.setProperty("--showcase-panel-opacity", String(panelOpacity));
     showcase.style.setProperty(
       "--showcase-panel-y",
-      `${spotlightProgress * 18}px`
+      `${spotlightProgress * 6}px`
     );
     showcase.style.setProperty(
       "--showcase-scale",

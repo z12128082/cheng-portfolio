@@ -14,6 +14,7 @@ Use this page override together with `design-system/cheng-portfolio/MASTER.md`.
 - Motion must be user-controllable. Provide a visible Motion / Reduced motion toggle and respect system reduced-motion preference.
 - Product showcases should expose compact metadata: input, state/signal, and output/surface.
 - Scroll storytelling should keep a text-first reading phase before project demo chrome appears.
+- Product demo cards should stay right-biased on desktop and keep the step rail readable; never compress or crop step content during scroll.
 - A fixed left-side readability veil is allowed when 3D background geometry crosses text.
 - Z-index layers should remain tokenized: stage, content, product, chrome, nav.
 - Scroll-driven sections should have a mobile fallback where product showcase overlays are hidden and text remains readable.

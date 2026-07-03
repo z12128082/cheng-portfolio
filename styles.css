@@ -458,15 +458,15 @@ h1 {
 
 .showcase-card {
   position: absolute;
-  --showcase-right-base: clamp(154px, 14vw, 228px);
+  --showcase-right-base: clamp(64px, 7vw, 104px);
   --showcase-base-width: 650px;
-  --showcase-max-width: 78vw;
-  --showcase-panel-base: 158px;
+  --showcase-max-width: 72vw;
+  --showcase-panel-base: 220px;
   right: max(36px, calc(var(--showcase-right-base) - var(--showcase-center-shift, 0px)));
   top: 50%;
   width: min(calc(var(--showcase-base-width) + var(--showcase-expand, 0px)), var(--showcase-max-width));
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, calc(var(--showcase-panel-base) * var(--showcase-panel-size, 1)));
+  grid-template-columns: minmax(0, 1fr) minmax(210px, calc(var(--showcase-panel-base) * var(--showcase-panel-size, 1)));
   align-items: end;
   gap: 16px;
   visibility: hidden;
@@ -490,10 +490,10 @@ h1 {
 }
 
 .showcase-card-token {
-  --showcase-right-base: clamp(176px, 16vw, 250px);
+  --showcase-right-base: clamp(72px, 8vw, 112px);
   --showcase-base-width: 520px;
-  --showcase-max-width: 70vw;
-  --showcase-panel-base: 180px;
+  --showcase-max-width: 64vw;
+  --showcase-panel-base: 210px;
 }
 
 .showcase-window {
@@ -754,8 +754,9 @@ h1 {
   display: grid;
   gap: 10px;
   min-width: 0;
-  padding-bottom: 6px;
-  overflow: hidden;
+  min-inline-size: 210px;
+  padding: 12px 0 8px;
+  overflow: visible;
   opacity: var(--showcase-panel-opacity, 1);
   text-shadow: 0 12px 32px rgba(0, 0, 0, 0.72);
   transform: translate3d(0, var(--showcase-panel-y, 0px), 0);
@@ -766,7 +767,7 @@ h1 {
 }
 
 .showcase-card.is-spotlight .showcase-panel {
-  pointer-events: none;
+  pointer-events: auto;
 }
 
 .showcase-panel p {
@@ -1360,16 +1361,16 @@ h1 {
   }
 
   .showcase-card {
-    --showcase-right-base: 118px;
-    --showcase-base-width: 640px;
-    --showcase-max-width: 76vw;
-    --showcase-panel-base: 150px;
+    --showcase-right-base: 52px;
+    --showcase-base-width: 600px;
+    --showcase-max-width: 72vw;
+    --showcase-panel-base: 210px;
   }
 
   .showcase-card-token {
-    --showcase-right-base: 128px;
-    --showcase-base-width: 500px;
-    --showcase-max-width: 70vw;
+    --showcase-right-base: 60px;
+    --showcase-base-width: 480px;
+    --showcase-max-width: 64vw;
   }
 
   .showcase-data-strip {
