@@ -13,6 +13,7 @@ import {
   scatterPoints,
   wavePoints
 } from "./shapes.js";
+import { createStructures } from "./scenes.js";
 
 export function detectQuality() {
   const isMobile =
@@ -102,6 +103,22 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
     const shape = (sceneShapes || {})[c.sceneId];
     if (shape) field.morphTo(shape);
     field.update(dt, time, c);
+  });
+
+  const structures = createStructures();
+  scene.add(structures.group);
+  const weights = { fab: 0, floors: 0, ring: 0 };
+  const weightTargets = {
+    "wafer-drift": "fab",
+    "yield-constellation": "floors",
+    "prompt-fabric": "ring"
+  };
+  frameHooks.push((dt, time, c) => {
+    for (const key of Object.keys(weights)) {
+      const target = weightTargets[c.sceneId] === key ? 1 : 0;
+      weights[key] = THREE.MathUtils.damp(weights[key], target, 3.2, dt);
+    }
+    structures.update(dt, time, c, weights);
   });
 
   function renderFrame() {
