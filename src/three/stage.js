@@ -5,6 +5,14 @@ import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPa
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 import { HoloFXShader } from "./fx.js";
+import { ParticleField } from "./particles.js";
+import {
+  fabPoints,
+  floorsPoints,
+  ringPoints,
+  scatterPoints,
+  wavePoints
+} from "./shapes.js";
 
 export function detectQuality() {
   const isMobile =
@@ -76,9 +84,25 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
     reducedMotion: Boolean(reducedMotion)
   };
 
+  const field = new ParticleField(quality.particleCount);
+  field.registerShape("scatter", scatterPoints(quality.particleCount));
+  field.registerShape("fab", fabPoints(quality.particleCount));
+  field.registerShape("floors", floorsPoints(quality.particleCount));
+  field.registerShape("ring", ringPoints(quality.particleCount));
+  field.registerShape("wave", wavePoints(quality.particleCount));
+  field.setInstant("scatter");
+  scene.add(field.points);
+  ctx.field = field;
+
   const frameHooks = [];
   const clock = new THREE.Clock();
   let rafId = 0;
+
+  frameHooks.push((dt, time, c) => {
+    const shape = (sceneShapes || {})[c.sceneId];
+    if (shape) field.morphTo(shape);
+    field.update(dt, time, c);
+  });
 
   function renderFrame() {
     const dt = Math.min(clock.getDelta(), 0.05);
