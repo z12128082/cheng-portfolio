@@ -20,10 +20,23 @@ import { sampleTextPoints } from "./boot.js";
 export function detectQuality() {
   const isMobile =
     window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 820;
+  const cores = navigator.hardwareConcurrency || 8;
+  const memory = navigator.deviceMemory || 8;
+  const lowEnd = cores <= 4 || memory <= 4;
   return {
     isMobile,
-    pixelRatio: Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2),
-    particleCount: isMobile ? 25000 : 80000
+    lowEnd,
+    pixelRatio: Math.min(
+      window.devicePixelRatio || 1,
+      isMobile ? (lowEnd ? 1.25 : 1.5) : 2
+    ),
+    particleCount: isMobile
+      ? lowEnd
+        ? 10000
+        : 16000
+      : lowEnd
+        ? 32000
+        : 56000
   };
 }
 
@@ -140,12 +153,42 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
   const rig = new CameraRig(camera);
   frameHooks.push((dt, time, c) => rig.update(dt, c));
 
+  // Adaptive quality: when frames keep running long on weak devices,
+  // progressively draw fewer particles, then lower the pixel ratio.
+  let perfEma = 1 / 60;
+  let perfTimer = 0;
+  let shedLevel = 0;
+
+  function shedQuality() {
+    shedLevel += 1;
+    const drawCount = Math.max(
+      8000,
+      Math.floor(quality.particleCount * Math.pow(0.7, shedLevel))
+    );
+    field.points.geometry.setDrawRange(0, drawCount);
+    if (shedLevel >= 3) {
+      const pr = Math.max(1, renderer.getPixelRatio() - 0.25);
+      renderer.setPixelRatio(pr);
+      composer.setPixelRatio(pr);
+      composer.setSize(window.innerWidth, window.innerHeight);
+    }
+  }
+
   function renderFrame() {
     const now = performance.now();
     const dt = Math.min((now - lastTime) / 1000, 0.05);
     lastTime = now;
     elapsed += dt;
     const time = elapsed;
+
+    if (elapsed > 4 && shedLevel < 6) {
+      perfEma = perfEma * 0.92 + dt * 0.08;
+      perfTimer += dt;
+      if (perfTimer > 2) {
+        perfTimer = 0;
+        if (perfEma > 0.026) shedQuality();
+      }
+    }
     ctx.pulseValue = Math.max(0, ctx.pulseValue - dt * 1.6);
     holoPass.uniforms.uTime.value = time;
     for (const hook of frameHooks) hook(dt, time, ctx);
