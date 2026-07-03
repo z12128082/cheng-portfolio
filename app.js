@@ -833,11 +833,11 @@ const showcaseSceneIds = new Set(
 const sceneSwitchProgress = 0.34;
 const sceneReleaseProgress = 0.08;
 const showcaseStepCount = 4;
-const showcaseRevealStart = 0.34;
-const showcaseRevealEnd = 0.62;
-const showcaseDemoStart = 0.48;
-const showcaseSpotlightStart = 0.56;
-const showcaseSpotlightEnd = 0.9;
+const showcaseRevealStart = 0.46;
+const showcaseRevealEnd = 0.68;
+const showcaseDemoStart = 0.56;
+const showcaseSpotlightStart = 0.68;
+const showcaseSpotlightEnd = 0.94;
 
 function t(path) {
   return path.split(".").reduce((current, key) => current?.[key], translations[state.locale]);
@@ -1096,8 +1096,8 @@ function updateProductShowcases(chapterStates) {
       showcaseStepCount - 1,
       Math.floor(stepProgress * showcaseStepCount)
     );
-    const introOffset = (1 - revealProgress) * 34;
-    const horizontalOffset = (1 - revealProgress) * 118;
+    const introOffset = (1 - revealProgress) * 28;
+    const horizontalOffset = (1 - revealProgress) * 180;
     const isTokenScope = sceneId === "prompt-fabric";
     const mediaScale = isTokenScope
       ? 1 + stepProgress * 0.035
@@ -1135,8 +1135,8 @@ function updateProductShowcases(chapterStates) {
       isTokenScope,
       spotlightWidth
     );
-    const stageMoveStart = isTokenScope ? 0.4 : 0.44;
-    const stageMoveEnd = isTokenScope ? 0.6 : 0.62;
+    const stageMoveStart = isTokenScope ? 0.6 : 0.62;
+    const stageMoveEnd = isTokenScope ? 0.78 : 0.8;
     const stageShiftProgress = state.reducedMotion
       ? 1
       : easeInOut(

@@ -101,8 +101,8 @@ p {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(2, 4, 6, 0.86) 0%, rgba(2, 4, 6, 0.28) 28%, rgba(2, 4, 6, 0.14) 68%, rgba(2, 4, 6, 0.58) 100%),
-    linear-gradient(180deg, rgba(2, 4, 6, 0.72) 0%, rgba(2, 4, 6, 0.02) 34%, rgba(2, 4, 6, 0.78) 100%);
+    linear-gradient(90deg, rgba(2, 4, 6, 0.94) 0%, rgba(2, 4, 6, 0.74) 24%, rgba(2, 4, 6, 0.26) 52%, rgba(2, 4, 6, 0.14) 72%, rgba(2, 4, 6, 0.58) 100%),
+    linear-gradient(180deg, rgba(2, 4, 6, 0.76) 0%, rgba(2, 4, 6, 0.04) 34%, rgba(2, 4, 6, 0.8) 100%);
 }
 
 .site-header,
@@ -1236,9 +1236,9 @@ h1 {
 }
 
 .film-chapter h3 {
-  max-width: 13ch;
+  max-width: 14ch;
   margin-top: 12px;
-  font-size: clamp(2.12rem, 4.1vw, 4rem);
+  font-size: clamp(2.12rem, 3.82vw, 3.72rem);
   line-height: 0.99;
   font-style: italic;
   font-weight: 860;
@@ -1266,6 +1266,14 @@ h1 {
   min-height: 112vh;
 }
 
+.chapter-approach {
+  padding-top: 16vh;
+}
+
+.chapter-approach .chapter-index {
+  margin-top: 80px;
+}
+
 .film-chapter[data-scene="yield-constellation"] {
   margin-left: 0;
   margin-right: 0;
@@ -1278,6 +1286,20 @@ h1 {
 .film-chapter[data-scene="prompt-fabric"] h3 {
   max-width: 14ch;
   overflow-wrap: normal;
+}
+
+.film-chapter[data-scene="wafer-drift"] h3 {
+  max-width: 15ch;
+}
+
+.chapter-approach h3 {
+  max-width: 15ch;
+  font-size: clamp(2rem, 3.24vw, 3.18rem);
+  line-height: 1.02;
+}
+
+.chapter-approach .approach-notes {
+  margin-top: 18px;
 }
 
 .approach-notes {
