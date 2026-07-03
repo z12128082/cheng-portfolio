@@ -1521,3 +1521,30 @@ h1 {
     scroll-behavior: auto;
   }
 }
+
+/* ── Boot sequence ─────────────────────────────────────────── */
+body.is-booting .site-header,
+body.is-booting .opening-copy {
+  opacity: 0;
+}
+
+body.is-booted .site-header,
+body.is-booted .opening-copy {
+  animation: boot-reveal 1.1s ease 0.15s backwards;
+}
+
+@keyframes boot-reveal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.is-booted .site-header,
+  body.is-booted .opening-copy {
+    animation: none;
+  }
+}

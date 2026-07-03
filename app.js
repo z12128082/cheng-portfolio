@@ -1,4 +1,9 @@
 import { createStage } from "./src/three/stage.js";
+import { runBoot } from "./src/three/boot.js";
+
+// Hide chrome as early as possible so the boot reveal does not flash;
+// runBoot() decides immediately whether to skip and re-show it.
+document.body.classList.add("is-booting");
 
 const translations = {
   zh: {
@@ -1074,3 +1079,5 @@ setupEventListeners();
 setStaticTranslations();
 stage.start();
 onScroll();
+runBoot({ stage, reducedMotion: state.reducedMotion });
+window.__stage = stage;

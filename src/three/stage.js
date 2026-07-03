@@ -15,6 +15,7 @@ import {
 } from "./shapes.js";
 import { createStructures } from "./scenes.js";
 import { CameraRig } from "./camera-rig.js";
+import { sampleTextPoints } from "./boot.js";
 
 export function detectQuality() {
   const isMobile =
@@ -100,10 +101,23 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
   const clock = new THREE.Clock();
   let rafId = 0;
 
+  let bootActive = false;
+
   frameHooks.push((dt, time, c) => {
-    const shape = (sceneShapes || {})[c.sceneId];
-    if (shape) field.morphTo(shape);
+    if (!bootActive) {
+      const shape = (sceneShapes || {})[c.sceneId];
+      if (shape) field.morphTo(shape);
+    }
     field.update(dt, time, c);
+  });
+
+  frameHooks.push((dt) => {
+    grid.material.opacity = THREE.MathUtils.damp(
+      grid.material.opacity,
+      bootActive ? 0.3 : 0.14,
+      2.4,
+      dt
+    );
   });
 
   const structures = createStructures();
@@ -190,6 +204,24 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
     },
     pulse() {
       ctx.pulseValue = 1;
+    },
+    beginBoot() {
+      bootActive = true;
+      grid.material.opacity = 0;
+      field.registerShape(
+        "bootText",
+        sampleTextPoints(quality.particleCount, ["CHENG", "PORTFOLIO"])
+      );
+      field.setInstant("scatter");
+    },
+    bootShowText() {
+      field.morphTo("bootText", { duration: 1.1 });
+    },
+    endBoot() {
+      bootActive = false;
+      field.morphTo((sceneShapes || {})[ctx.sceneId] || "scatter", {
+        duration: 1.3
+      });
     },
     beginDrag: (x, y) => rig.beginDrag(x, y),
     moveDrag: (x, y) => rig.moveDrag(x, y),
