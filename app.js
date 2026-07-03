@@ -693,6 +693,11 @@ function updateProductShowcases(chapterStates) {
       return;
     }
 
+    const isMobileLayout = window.innerWidth <= 820;
+    // on mobile the card is bottom-anchored over the text column, so it
+    // reveals later and pushes the chapter copy out of the way
+    const revealStartAt = isMobileLayout ? 0.5 : showcaseRevealStart;
+    const revealEndAt = isMobileLayout ? 0.64 : showcaseRevealEnd;
     const scrubProgress = state.reducedMotion
       ? 0.58
       : getChapterScrubProgress(chapterState.node);
@@ -700,13 +705,16 @@ function updateProductShowcases(chapterStates) {
       ? 1
       : easeCinematic(
           clamp(
-            (scrubProgress - showcaseRevealStart) /
-              (showcaseRevealEnd - showcaseRevealStart),
+            (scrubProgress - revealStartAt) / (revealEndAt - revealStartAt),
             0,
             1
           )
         );
-    const exitProgress = easeInOut(clamp((scrubProgress - 0.97) / 0.03, 0, 1));
+    const exitStartAt = isMobileLayout ? 0.74 : 0.97;
+    const exitRangeAt = isMobileLayout ? 0.08 : 0.03;
+    const exitProgress = easeInOut(
+      clamp((scrubProgress - exitStartAt) / exitRangeAt, 0, 1)
+    );
     const visibility = revealProgress * (1 - exitProgress);
     const stepProgress = clamp(
       (scrubProgress - showcaseDemoStart) / (1 - showcaseDemoStart),
@@ -747,6 +755,10 @@ function updateProductShowcases(chapterStates) {
 
     showcase.classList.toggle("is-visible", visibility > 0.08);
     showcase.classList.toggle("is-spotlight", spotlightProgress > 0.64);
+    chapterState.node.classList.toggle(
+      "is-showcase-open",
+      isMobileLayout && visibility > 0.22
+    );
     showcase.style.setProperty("--showcase-opacity", String(visibility));
     showcase.style.setProperty("--showcase-y", `${introOffset}px`);
     showcase.style.setProperty("--showcase-expand", `${spotlightWidth}px`);
@@ -978,7 +990,7 @@ function onScroll() {
   let bestDistance = Number.POSITIVE_INFINITY;
   let activeChapterState = null;
   const chapterFocusLine = window.innerHeight * 0.42;
-  const chapterRange = window.innerHeight * 0.78;
+  const chapterRange = window.innerHeight * 0.86;
   const openingProgress = clamp(scrollY / (window.innerHeight * 0.72), 0, 1);
   const maxScroll =
     document.documentElement.scrollHeight - window.innerHeight || 1;
