@@ -98,8 +98,9 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
   ctx.field = field;
 
   const frameHooks = [];
-  const clock = new THREE.Clock();
   let rafId = 0;
+  let lastTime = performance.now();
+  let elapsed = 0;
 
   let bootActive = false;
 
@@ -140,8 +141,11 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
   frameHooks.push((dt, time, c) => rig.update(dt, c));
 
   function renderFrame() {
-    const dt = Math.min(clock.getDelta(), 0.05);
-    const time = clock.elapsedTime;
+    const now = performance.now();
+    const dt = Math.min((now - lastTime) / 1000, 0.05);
+    lastTime = now;
+    elapsed += dt;
+    const time = elapsed;
     ctx.pulseValue = Math.max(0, ctx.pulseValue - dt * 1.6);
     holoPass.uniforms.uTime.value = time;
     for (const hook of frameHooks) hook(dt, time, ctx);
@@ -168,7 +172,7 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
       holoPass.uniforms.uTime.value = 0;
       composer.render();
     } else if (!document.hidden) {
-      clock.getDelta();
+      lastTime = performance.now();
       loop();
     }
   }
