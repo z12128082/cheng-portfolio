@@ -388,11 +388,15 @@ h1 {
 
 .showcase-card {
   position: absolute;
-  right: clamp(154px, 14vw, 228px);
+  --showcase-right-base: clamp(154px, 14vw, 228px);
+  --showcase-base-width: 650px;
+  --showcase-max-width: 78vw;
+  --showcase-panel-base: 158px;
+  right: max(36px, calc(var(--showcase-right-base) - var(--showcase-center-shift, 0px)));
   top: 50%;
-  width: min(650px, 52vw);
+  width: min(calc(var(--showcase-base-width) + var(--showcase-expand, 0px)), var(--showcase-max-width));
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(158px, 0.28fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, calc(var(--showcase-panel-base) * var(--showcase-panel-size, 1)));
   align-items: end;
   gap: 16px;
   visibility: hidden;
@@ -404,8 +408,10 @@ h1 {
   transform-origin: 58% 50%;
   transition:
     opacity 120ms linear,
-    transform 120ms linear;
-  will-change: opacity, transform;
+    right 120ms linear,
+    transform 120ms linear,
+    width 120ms linear;
+  will-change: opacity, right, transform, width;
 }
 
 .showcase-card.is-visible {
@@ -414,9 +420,10 @@ h1 {
 }
 
 .showcase-card-token {
-  right: clamp(176px, 16vw, 250px);
-  width: min(520px, 44vw);
-  grid-template-columns: minmax(220px, 0.62fr) minmax(180px, 0.38fr);
+  --showcase-right-base: clamp(176px, 16vw, 250px);
+  --showcase-base-width: 520px;
+  --showcase-max-width: 70vw;
+  --showcase-panel-base: 180px;
 }
 
 .showcase-window {
@@ -603,8 +610,20 @@ h1 {
 .showcase-panel {
   display: grid;
   gap: 10px;
+  min-width: 0;
   padding-bottom: 6px;
+  overflow: hidden;
+  opacity: var(--showcase-panel-opacity, 1);
   text-shadow: 0 12px 32px rgba(0, 0, 0, 0.72);
+  transform: translate3d(0, var(--showcase-panel-y, 0px), 0);
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+  will-change: opacity, transform;
+}
+
+.showcase-card.is-spotlight .showcase-panel {
+  pointer-events: none;
 }
 
 .showcase-panel p {
@@ -1126,14 +1145,16 @@ h1 {
   }
 
   .showcase-card {
-    right: 118px;
-    width: min(640px, 58vw);
-    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.3fr);
+    --showcase-right-base: 118px;
+    --showcase-base-width: 640px;
+    --showcase-max-width: 76vw;
+    --showcase-panel-base: 150px;
   }
 
   .showcase-card-token {
-    right: 128px;
-    width: min(500px, 52vw);
+    --showcase-right-base: 128px;
+    --showcase-base-width: 500px;
+    --showcase-max-width: 70vw;
   }
 
   .film-track {

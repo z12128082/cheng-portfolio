@@ -787,9 +787,11 @@ const showcaseSceneIds = new Set(
 const sceneSwitchProgress = 0.34;
 const sceneReleaseProgress = 0.08;
 const showcaseStepCount = 4;
-const showcaseRevealStart = 0.36;
-const showcaseRevealEnd = 0.68;
-const showcaseDemoStart = 0.6;
+const showcaseRevealStart = 0.34;
+const showcaseRevealEnd = 0.62;
+const showcaseDemoStart = 0.48;
+const showcaseSpotlightStart = 0.56;
+const showcaseSpotlightEnd = 0.9;
 
 function t(path) {
   return path.split(".").reduce((current, key) => current?.[key], translations[state.locale]);
@@ -929,7 +931,7 @@ function easeCinematic(value) {
 function getChapterScrubProgress(node) {
   const rect = node.getBoundingClientRect();
   const startY = window.innerHeight * 0.82;
-  const endY = -rect.height * 0.62;
+  const endY = -rect.height * 0.82;
   return clamp((startY - rect.top) / (startY - endY), 0, 1);
 }
 
@@ -959,13 +961,23 @@ function updateProductShowcases(chapterStates) {
             1
           )
         );
-    const chapterVisibility = easeInOut(clamp(chapterState.progress * 1.12, 0, 1));
-    const visibility = revealProgress * chapterVisibility;
+    const exitProgress = easeInOut(clamp((scrubProgress - 0.97) / 0.03, 0, 1));
+    const visibility = revealProgress * (1 - exitProgress);
     const stepProgress = clamp(
       (scrubProgress - showcaseDemoStart) / (1 - showcaseDemoStart),
       0,
       1
     );
+    const spotlightProgress = state.reducedMotion
+      ? 0.72
+      : easeInOut(
+          clamp(
+            (scrubProgress - showcaseSpotlightStart) /
+              (showcaseSpotlightEnd - showcaseSpotlightStart),
+            0,
+            1
+          )
+        );
     const stepIndex = Math.min(
       showcaseStepCount - 1,
       Math.floor(stepProgress * showcaseStepCount)
@@ -982,11 +994,28 @@ function updateProductShowcases(chapterStates) {
     const mediaY = isTokenScope
       ? lerp(0, -1.6, stepProgress)
       : lerp(0, -4.2, stepProgress);
+    const spotlightWidth = isTokenScope
+      ? spotlightProgress * 190
+      : spotlightProgress * 270;
+    const spotlightShift = isTokenScope
+      ? spotlightProgress * 86
+      : spotlightProgress * 116;
+    const panelSize = 1 - spotlightProgress * 0.72;
+    const panelOpacity = 1 - spotlightProgress * 0.78;
 
     showcase.classList.toggle("is-visible", visibility > 0.08);
+    showcase.classList.toggle("is-spotlight", spotlightProgress > 0.64);
     showcase.style.setProperty("--showcase-opacity", String(visibility));
     showcase.style.setProperty("--showcase-x", `${horizontalOffset}px`);
     showcase.style.setProperty("--showcase-y", `${introOffset}px`);
+    showcase.style.setProperty("--showcase-expand", `${spotlightWidth}px`);
+    showcase.style.setProperty("--showcase-center-shift", `${spotlightShift}px`);
+    showcase.style.setProperty("--showcase-panel-size", String(panelSize));
+    showcase.style.setProperty("--showcase-panel-opacity", String(panelOpacity));
+    showcase.style.setProperty(
+      "--showcase-panel-y",
+      `${spotlightProgress * 18}px`
+    );
     showcase.style.setProperty(
       "--showcase-scale",
       String(0.78 + revealProgress * 0.22)
