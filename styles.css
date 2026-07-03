@@ -1453,9 +1453,6 @@ h1 {
     inset: 132px 14px 22px;
   }
 
-  .product-showcase {
-    display: none;
-  }
 
   .hero-webgl {
     opacity: 1;
@@ -1576,5 +1573,57 @@ html.is-stage-live .stage-progress {
   .film-chapter h3 {
     max-width: none;
     font-size: clamp(1.66rem, 8.4vw, 2.5rem);
+  }
+}
+
+/* ── Mobile product showcase (compact bottom cards) ────────── */
+@media (max-width: 820px) {
+  .showcase-card {
+    left: 14px;
+    right: 14px;
+    top: auto;
+    bottom: 78px;
+    width: auto;
+    max-width: none;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    align-items: start;
+    transform-origin: 50% 100%;
+    transform:
+      translate3d(0, var(--showcase-y, 0px), 0)
+      scale(var(--showcase-scale, 0.96));
+  }
+
+  .showcase-card-token {
+    max-width: none;
+  }
+
+  .showcase-window-compact {
+    width: min(100%, 280px);
+    justify-self: center;
+  }
+
+  .showcase-window-compact .showcase-media {
+    aspect-ratio: 390 / 400;
+  }
+
+  .showcase-steps,
+  .showcase-data-strip {
+    display: none;
+  }
+
+  .showcase-panel h2 {
+    font-size: 1.05rem;
+  }
+
+  .showcase-panel {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+  }
+
+  .showcase-panel p {
+    width: 100%;
   }
 }

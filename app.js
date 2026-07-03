@@ -108,7 +108,7 @@ const scenes = [
   { id: "wafer-drift", shape: "fab" },
   { id: "yield-constellation", shape: "floors" },
   { id: "prompt-fabric", shape: "ring" },
-  { id: "approach", shape: "wave" }
+  { id: "approach", shape: "emblem" }
 ];
 
 function metric(labelZh, labelEn, valueZh, valueEn) {
@@ -612,7 +612,13 @@ function setupEventListeners() {
 
   window.addEventListener("pointerdown", (event) => {
     if (event.pointerType === "touch") return;
-    if (event.target.closest("a, button, input, .showcase-card")) return;
+    if (
+      event.target.closest(
+        "a, button, input, .showcase-card, p, h1, h2, h3, li, .film-hud"
+      )
+    ) {
+      return;
+    }
     stage?.beginDrag(event.clientX, event.clientY);
   });
   window.addEventListener("pointermove", (event) => {

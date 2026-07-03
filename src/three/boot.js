@@ -1,4 +1,8 @@
-export function sampleTextPoints(count, lines, worldWidth = 7.4) {
+export function sampleTextPoints(
+  count,
+  lines,
+  { worldWidth = 7.4, centerX = 0, centerY = 2.15 } = {}
+) {
   const canvas = document.createElement("canvas");
   canvas.width = 640;
   canvas.height = 220;
@@ -21,8 +25,8 @@ export function sampleTextPoints(count, lines, worldWidth = 7.4) {
     const [x, y] = candidates.length
       ? candidates[(Math.random() * candidates.length) | 0]
       : [320, 110];
-    out[i * 3] = (x - 320) * scale;
-    out[i * 3 + 1] = 2.3 - (y - 110) * scale;
+    out[i * 3] = centerX + (x - 320) * scale;
+    out[i * 3 + 1] = centerY - (y - 110) * scale;
     out[i * 3 + 2] = (Math.random() - 0.5) * 0.22;
   }
   return out;

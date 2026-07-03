@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   boxEdges,
+  emblemPoints,
   fabPoints,
   floorsPoints,
   ringPoints,
@@ -11,7 +12,14 @@ import {
 } from "../src/three/shapes.js";
 
 const COUNT = 4096;
-const generators = { fabPoints, floorsPoints, ringPoints, scatterPoints, wavePoints };
+const generators = {
+  emblemPoints,
+  fabPoints,
+  floorsPoints,
+  ringPoints,
+  scatterPoints,
+  wavePoints
+};
 
 for (const [name, gen] of Object.entries(generators)) {
   test(`${name} returns exact count*3 finite floats`, () => {

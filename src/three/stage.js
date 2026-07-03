@@ -7,11 +7,11 @@ import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 import { HoloFXShader } from "./fx.js";
 import { ParticleField } from "./particles.js";
 import {
+  emblemPoints,
   fabPoints,
   floorsPoints,
   ringPoints,
-  scatterPoints,
-  wavePoints
+  scatterPoints
 } from "./shapes.js";
 import { createStructures } from "./scenes.js";
 import { CameraRig } from "./camera-rig.js";
@@ -92,7 +92,7 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
   field.registerShape("fab", fabPoints(quality.particleCount));
   field.registerShape("floors", floorsPoints(quality.particleCount));
   field.registerShape("ring", ringPoints(quality.particleCount));
-  field.registerShape("wave", wavePoints(quality.particleCount));
+  field.registerShape("emblem", emblemPoints(quality.particleCount));
   field.setInstant("scatter");
   scene.add(field.points);
   ctx.field = field;
@@ -212,9 +212,18 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
     beginBoot() {
       bootActive = true;
       grid.material.opacity = 0;
+      // align the particle text with where the DOM headline will appear:
+      // lower-left on wide screens, centered on portrait
+      const wide = camera.aspect > 1.05;
       field.registerShape(
         "bootText",
-        sampleTextPoints(quality.particleCount, ["CHENG", "PORTFOLIO"])
+        sampleTextPoints(
+          quality.particleCount,
+          ["CHENG", "PORTFOLIO"],
+          wide
+            ? { worldWidth: 5.6, centerX: -1.7, centerY: 1.5 }
+            : { worldWidth: 6.2, centerX: 0, centerY: 2.05 }
+        )
       );
       field.setInstant("scatter");
     },

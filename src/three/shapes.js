@@ -116,6 +116,48 @@ export function scatterPoints(count, radius = 6.5) {
   return out;
 }
 
+export function emblemPoints(count, cy = 1.6) {
+  const out = new Float32Array(count * 3);
+  const ringTilt = [0.5, -0.5, 1.35];
+  const ringSpin = [0, 2.09, 4.19];
+  for (let i = 0; i < count; i++) {
+    let x, y, z;
+    const roll = i % 10;
+    if (roll < 2) {
+      // dense luminous core
+      const r = 0.55 * Math.cbrt(Math.random());
+      const th = Math.random() * Math.PI * 2;
+      const ph = Math.acos(2 * Math.random() - 1);
+      x = r * Math.sin(ph) * Math.cos(th);
+      y = r * Math.cos(ph);
+      z = r * Math.sin(ph) * Math.sin(th);
+    } else if (roll < 3) {
+      // vertical energy pillar
+      x = (Math.random() - 0.5) * 0.07;
+      y = (Math.random() - 0.5) * 3.4;
+      z = (Math.random() - 0.5) * 0.07;
+    } else {
+      // three tilted orbital rings
+      const k = i % 3;
+      const a = Math.random() * Math.PI * 2;
+      const r = 1.85 + (Math.random() - 0.5) * 0.08;
+      const px = Math.cos(a) * r;
+      const pz = Math.sin(a) * r;
+      const tilt = ringTilt[k];
+      const py = -pz * Math.sin(tilt);
+      const pz2 = pz * Math.cos(tilt);
+      const spin = ringSpin[k];
+      x = px * Math.cos(spin) + pz2 * Math.sin(spin);
+      y = py;
+      z = -px * Math.sin(spin) + pz2 * Math.cos(spin);
+    }
+    out[i * 3] = x;
+    out[i * 3 + 1] = cy + y;
+    out[i * 3 + 2] = z * 0.9;
+  }
+  return out;
+}
+
 export function wavePoints(count, width = 9, depth = 5) {
   const out = new Float32Array(count * 3);
   const cols = Math.max(2, Math.ceil(Math.sqrt(count * (width / depth))));
