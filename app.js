@@ -590,21 +590,40 @@ translations.zh.buttons = {
   githubProfile: "GitHub 個人頁",
   liveDemo: "線上展示",
   githubRepo: "GitHub Repo",
-  privateRepo: "Private repo"
+  privateRepo: "Private repo",
+  motionOn: "動態開啟",
+  motionReduced: "降低動態"
 };
 translations.en.buttons = {
   viewProjects: "View Work",
   githubProfile: "GitHub Profile",
   liveDemo: "Live Demo",
   githubRepo: "GitHub Repo",
-  privateRepo: "Private repo"
+  privateRepo: "Private repo",
+  motionOn: "Motion on",
+  motionReduced: "Reduced motion"
+};
+
+translations.zh.stage = {
+  modeLabel: "Stage mode",
+  modeValue: "產品展示序列"
+};
+translations.en.stage = {
+  modeLabel: "Stage mode",
+  modeValue: "Product demo sequence"
 };
 
 translations.zh.showcases = {
   twin: {
     eyebrow: "Digital Twin Viewer",
+    mode: "Operational stage",
     label: "Project 01 / Web 3D",
     title: "IFC 到營運數位孿生",
+    meta: [
+      { label: "Input", value: "Federated IFC" },
+      { label: "State", value: "Live telemetry" },
+      { label: "Surface", value: "Operator viewer" }
+    ],
     steps: [
       "IFC 模型載入",
       "模型與 category layer 狀態",
@@ -614,8 +633,14 @@ translations.zh.showcases = {
   },
   token: {
     eyebrow: "TokenScope Utility",
+    mode: "Workflow utility",
     label: "Project 02 / Desktop Tool",
     title: "一眼看懂使用量狀態",
+    meta: [
+      { label: "Source", value: "Local sessions" },
+      { label: "Signal", value: "Usage threshold" },
+      { label: "Output", value: "Menubar status" }
+    ],
     steps: [
       "Session usage ring",
       "Reset 與 remaining 狀態",
@@ -628,8 +653,14 @@ translations.zh.showcases = {
 translations.en.showcases = {
   twin: {
     eyebrow: "Digital Twin Viewer",
+    mode: "Operational stage",
     label: "Project 01 / Web 3D",
     title: "IFC to operational twin",
+    meta: [
+      { label: "Input", value: "Federated IFC" },
+      { label: "State", value: "Live telemetry" },
+      { label: "Surface", value: "Operator viewer" }
+    ],
     steps: [
       "IFC model loaded",
       "Model and category layer state",
@@ -639,8 +670,14 @@ translations.en.showcases = {
   },
   token: {
     eyebrow: "TokenScope Utility",
+    mode: "Workflow utility",
     label: "Project 02 / Desktop Tool",
     title: "Usage state at a glance",
+    meta: [
+      { label: "Source", value: "Local sessions" },
+      { label: "Signal", value: "Usage threshold" },
+      { label: "Output", value: "Menubar status" }
+    ],
     steps: [
       "Session usage ring",
       "Reset and remaining state",
@@ -744,6 +781,9 @@ for (const scene of scenes) {
   }
 }
 
+const motionPreference = window.localStorage.getItem("portfolio-motion");
+const reducedMotionMedia = window.matchMedia("(prefers-reduced-motion: reduce)");
+
 const state = {
   locale: window.localStorage.getItem("exhibit-locale") || "zh",
   activeSceneId: "intro",
@@ -751,13 +791,17 @@ const state = {
     x: window.innerWidth * 0.5,
     y: window.innerHeight * 0.45
   },
-  reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  reducedMotion:
+    motionPreference === "reduced" ||
+    (motionPreference !== "full" && reducedMotionMedia.matches),
   scrollProgress: 0,
   sceneProgress: 0,
   lockPulse: 0,
   snapTimer: null,
   lockTimer: null,
   isSnapping: false,
+  lastScrollY: window.scrollY,
+  lastScrollDelta: 0,
   three: null
 };
 
@@ -766,6 +810,8 @@ const openingSummary = document.getElementById("opening-summary");
 const localeButtons = Array.from(
   document.querySelectorAll("[data-locale-trigger]")
 );
+const motionToggle = document.querySelector("[data-motion-toggle]");
+const motionToggleLabel = document.querySelector("[data-motion-label]");
 const hudKicker = document.getElementById("hud-kicker");
 const hudTitle = document.getElementById("hud-title");
 const hudDescription = document.getElementById("hud-description");
@@ -851,7 +897,23 @@ function setStaticTranslations() {
     );
   });
 
+  updateMotionToggle();
   updateHud(getScene(state.activeSceneId));
+}
+
+function updateMotionToggle() {
+  document.documentElement.classList.toggle("is-reduced-motion", state.reducedMotion);
+
+  if (!motionToggle || !motionToggleLabel) {
+    return;
+  }
+
+  const label = state.reducedMotion
+    ? t("buttons.motionReduced")
+    : t("buttons.motionOn");
+  motionToggleLabel.textContent = label;
+  motionToggle.setAttribute("aria-pressed", String(!state.reducedMotion));
+  motionToggle.setAttribute("aria-label", label);
 }
 
 function updateHud(scene) {
@@ -885,6 +947,13 @@ function setLocale(locale) {
   setStaticTranslations();
 }
 
+function setMotionPreference(reducedMotion) {
+  state.reducedMotion = reducedMotion;
+  window.localStorage.setItem("portfolio-motion", reducedMotion ? "reduced" : "full");
+  updateMotionToggle();
+  onScroll();
+}
+
 function setupEventListeners() {
   localeButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -893,6 +962,24 @@ function setupEventListeners() {
       }
     });
   });
+
+  motionToggle?.addEventListener("click", () => {
+    setMotionPreference(!state.reducedMotion);
+  });
+
+  const syncSystemMotionPreference = (event) => {
+    if (!window.localStorage.getItem("portfolio-motion")) {
+      state.reducedMotion = event.matches;
+      updateMotionToggle();
+      onScroll();
+    }
+  };
+
+  if (reducedMotionMedia.addEventListener) {
+    reducedMotionMedia.addEventListener("change", syncSystemMotionPreference);
+  } else {
+    reducedMotionMedia.addListener(syncSystemMotionPreference);
+  }
 
   window.addEventListener("pointermove", (event) => {
     state.pointer.x = event.clientX;
@@ -1115,9 +1202,12 @@ function pulseSceneLock() {
 }
 
 function scheduleSceneSnap() {
+  const isLargeScrollJump = state.lastScrollDelta > window.innerHeight * 0.58;
+
   if (
     state.reducedMotion ||
     state.isSnapping ||
+    isLargeScrollJump ||
     window.innerWidth < 760 ||
     showcaseSceneIds.has(state.activeSceneId)
   ) {
@@ -1179,6 +1269,30 @@ function getChapterMotion(sceneId, progress, direction) {
     origin: "left center",
     lineOrigin: "left center"
   };
+
+  if (state.reducedMotion) {
+    return {
+      ...motion,
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+      blur: 0,
+      clipTop: 0,
+      clipRight: 0,
+      clipBottom: 0,
+      clipLeft: 0,
+      lineX: 0,
+      indexX: 0,
+      indexY: 0,
+      kickerX: 0,
+      kickerY: 0,
+      titleX: 0,
+      titleY: 0,
+      bodyX: 0,
+      bodyY: 0
+    };
+  }
 
   if (sceneId === "intro") {
     return {
@@ -2091,16 +2205,20 @@ function resizeThreeScene() {
 }
 
 function onScroll() {
+  const scrollY = window.scrollY;
+  state.lastScrollDelta = Math.abs(scrollY - state.lastScrollY);
+  state.lastScrollY = scrollY;
+
   let bestScene = scenes[0];
   let bestProgress = -1;
   let bestDistance = Number.POSITIVE_INFINITY;
   let activeChapterState = null;
   const chapterFocusLine = window.innerHeight * 0.42;
   const chapterRange = window.innerHeight * 0.78;
-  const openingProgress = clamp(window.scrollY / (window.innerHeight * 0.72), 0, 1);
+  const openingProgress = clamp(scrollY / (window.innerHeight * 0.72), 0, 1);
   const maxScroll =
     document.documentElement.scrollHeight - window.innerHeight || 1;
-  state.scrollProgress = clamp(window.scrollY / maxScroll, 0, 1);
+  state.scrollProgress = clamp(scrollY / maxScroll, 0, 1);
   document.documentElement.style.setProperty(
     "--stage-progress",
     String(state.scrollProgress)
@@ -2280,7 +2398,7 @@ function animateThreeScene(timeMs) {
     currentVisual
   } = state.three;
 
-  const time = timeMs * 0.001;
+  const time = state.reducedMotion ? 0 : timeMs * 0.001;
   const targetScene = getScene(state.activeSceneId);
   const xRatio = state.pointer.x / window.innerWidth - 0.5;
   const yRatio = state.pointer.y / window.innerHeight - 0.5;

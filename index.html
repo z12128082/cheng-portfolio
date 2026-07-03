@@ -32,6 +32,15 @@
         </nav>
 
         <div class="header-tools">
+          <button
+            class="motion-toggle"
+            type="button"
+            data-motion-toggle
+            aria-pressed="false"
+          >
+            <span class="motion-toggle-dot" aria-hidden="true"></span>
+            <span data-motion-label>Motion</span>
+          </button>
           <div class="lang-switch" role="group" aria-label="Language switcher">
             <button
               class="lang-button is-active"
@@ -98,6 +107,7 @@
                       <div class="showcase-topbar">
                         <span class="showcase-led"></span>
                         <span data-i18n="showcases.twin.eyebrow">Digital Twin Viewer</span>
+                        <span class="showcase-mode" data-i18n="showcases.twin.mode">Operational stage</span>
                       </div>
                       <div class="showcase-media">
                         <img
@@ -111,6 +121,20 @@
                         <span class="showcase-focus focus-twin-layer" data-focus-step="1"></span>
                         <span class="showcase-focus focus-twin-alert" data-focus-step="2"></span>
                         <span class="showcase-focus focus-twin-dashboard" data-focus-step="3"></span>
+                      </div>
+                      <div class="showcase-data-strip">
+                        <span>
+                          <b data-i18n="showcases.twin.meta.0.label">Input</b>
+                          <em data-i18n="showcases.twin.meta.0.value">Federated IFC</em>
+                        </span>
+                        <span>
+                          <b data-i18n="showcases.twin.meta.1.label">State</b>
+                          <em data-i18n="showcases.twin.meta.1.value">Live telemetry</em>
+                        </span>
+                        <span>
+                          <b data-i18n="showcases.twin.meta.2.label">Surface</b>
+                          <em data-i18n="showcases.twin.meta.2.value">Operator viewer</em>
+                        </span>
                       </div>
                     </div>
                     <div class="showcase-panel">
@@ -150,6 +174,7 @@
                       <div class="showcase-topbar">
                         <span class="showcase-led is-warm"></span>
                         <span data-i18n="showcases.token.eyebrow">TokenScope Utility</span>
+                        <span class="showcase-mode" data-i18n="showcases.token.mode">Workflow utility</span>
                       </div>
                       <div class="showcase-media">
                         <img
@@ -163,6 +188,20 @@
                         <span class="showcase-focus focus-token-session" data-focus-step="1"></span>
                         <span class="showcase-focus focus-token-provider" data-focus-step="2"></span>
                         <span class="showcase-focus focus-token-status" data-focus-step="3"></span>
+                      </div>
+                      <div class="showcase-data-strip">
+                        <span>
+                          <b data-i18n="showcases.token.meta.0.label">Source</b>
+                          <em data-i18n="showcases.token.meta.0.value">Local sessions</em>
+                        </span>
+                        <span>
+                          <b data-i18n="showcases.token.meta.1.label">Signal</b>
+                          <em data-i18n="showcases.token.meta.1.value">Usage threshold</em>
+                        </span>
+                        <span>
+                          <b data-i18n="showcases.token.meta.2.label">Output</b>
+                          <em data-i18n="showcases.token.meta.2.value">Menubar status</em>
+                        </span>
                       </div>
                     </div>
                     <div class="showcase-panel">
@@ -198,6 +237,10 @@
                   <div class="stage-logo" data-i18n="brand.title">Cheng Portfolio</div>
                   <div class="stage-axis stage-axis-left">SYSTEMS</div>
                   <div class="stage-axis stage-axis-right">OPERATORS</div>
+                  <div class="stage-mode-panel">
+                    <span data-i18n="stage.modeLabel">Stage mode</span>
+                    <strong data-i18n="stage.modeValue">Product demo sequence</strong>
+                  </div>
                 </div>
 
                 <div class="stage-progress" aria-hidden="true">
