@@ -186,7 +186,7 @@ export function createStructures() {
       const scanPhase = (time * 0.45) % 1;
       scanRect.position.y = scanPhase * 3.4;
       scanRect.material.opacity =
-        weights.fab * 0.9 * (1 - Math.abs(scanPhase - 0.5) * 0.6);
+        weights.fab * 0.9 * Math.sin(Math.PI * scanPhase);
       fabGroup.visible = weights.fab > 0.01;
 
       // floors: explode separation follows scroll progress

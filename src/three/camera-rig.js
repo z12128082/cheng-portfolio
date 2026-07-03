@@ -124,6 +124,15 @@ export class CameraRig {
     const offset = this.currentPos.clone().sub(this.currentLook);
     offset.applyAxisAngle(new THREE.Vector3(0, 1, 0), this.orbit.yaw);
     offset.applyAxisAngle(new THREE.Vector3(1, 0, 0), this.orbit.pitch);
+    // paths are tuned for landscape; pull back on narrow/portrait screens
+    // so structures stay fully framed
+    const aspect = this.camera.aspect || 1.78;
+    const pullback = THREE.MathUtils.clamp(
+      Math.pow(1 / Math.min(aspect, 1), 0.75),
+      1,
+      2
+    );
+    offset.multiplyScalar(pullback);
     this.camera.position.copy(this.currentLook).add(offset);
     this.camera.position.x += ctx.pointer.x * 0.5;
     this.camera.position.y += ctx.pointer.y * -0.3;
@@ -133,7 +142,8 @@ export class CameraRig {
       this.currentLook.z
     );
     const fovKick = Math.sin(Math.PI * (ctx.field ? ctx.field.mixValue : 1)) * 2.4;
-    this.camera.fov = this.currentFov + fovKick + ctx.pulseValue * 1.2;
+    const portraitFov = (1 - Math.min(aspect, 1)) * 6;
+    this.camera.fov = this.currentFov + fovKick + portraitFov + ctx.pulseValue * 1.2;
     this.camera.rotation.z += this.orbit.yaw * 0.12;
     this.camera.updateProjectionMatrix();
   }

@@ -1067,6 +1067,11 @@ function onScroll() {
     node.style.setProperty("--chapter-line-origin", motion.lineOrigin);
   });
 
+  document.documentElement.classList.toggle(
+    "is-stage-live",
+    openingProgress > 0.65
+  );
+
   stage?.setScene(state.activeSceneId, state.sceneProgress);
   updateProductShowcases(chapterStates);
   scheduleSceneSnap();
