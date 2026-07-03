@@ -14,6 +14,7 @@ import {
   wavePoints
 } from "./shapes.js";
 import { createStructures } from "./scenes.js";
+import { CameraRig } from "./camera-rig.js";
 
 export function detectQuality() {
   const isMobile =
@@ -121,6 +122,9 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
     structures.update(dt, time, c, weights);
   });
 
+  const rig = new CameraRig(camera);
+  frameHooks.push((dt, time, c) => rig.update(dt, c));
+
   function renderFrame() {
     const dt = Math.min(clock.getDelta(), 0.05);
     const time = clock.elapsedTime;
@@ -187,6 +191,9 @@ export function createStage({ canvas, reducedMotion, sceneShapes }) {
     pulse() {
       ctx.pulseValue = 1;
     },
+    beginDrag: (x, y) => rig.beginDrag(x, y),
+    moveDrag: (x, y) => rig.moveDrag(x, y),
+    endDrag: () => rig.endDrag(),
     registerFrameHook(fn) {
       frameHooks.push(fn);
       if (ctx.reducedMotion) applyMode();

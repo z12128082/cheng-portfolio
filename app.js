@@ -600,6 +600,17 @@ function setupEventListeners() {
   });
 
   window.addEventListener("scroll", onScroll, { passive: true });
+
+  window.addEventListener("pointerdown", (event) => {
+    if (event.pointerType === "touch") return;
+    if (event.target.closest("a, button, input, .showcase-card")) return;
+    stage?.beginDrag(event.clientX, event.clientY);
+  });
+  window.addEventListener("pointermove", (event) => {
+    stage?.moveDrag(event.clientX, event.clientY);
+  });
+  window.addEventListener("pointerup", () => stage?.endDrag());
+  window.addEventListener("pointercancel", () => stage?.endDrag());
 }
 
 function lerp(current, target, factor) {
