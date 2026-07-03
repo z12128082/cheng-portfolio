@@ -935,6 +935,33 @@ function getChapterScrubProgress(node) {
   return clamp((startY - rect.top) / (startY - endY), 0, 1);
 }
 
+function getShowcaseLayoutMetrics(isTokenScope, spotlightWidth) {
+  const viewportWidth = window.innerWidth;
+  const isCompactStage = viewportWidth <= 1100;
+  const rightBase = isCompactStage
+    ? isTokenScope
+      ? 128
+      : 118
+    : isTokenScope
+      ? clamp(viewportWidth * 0.16, 176, 250)
+      : clamp(viewportWidth * 0.14, 154, 228);
+  const baseWidth = isCompactStage
+    ? isTokenScope
+      ? 500
+      : 640
+    : isTokenScope
+      ? 520
+      : 650;
+  const maxWidth =
+    viewportWidth *
+    (isCompactStage ? (isTokenScope ? 0.7 : 0.76) : isTokenScope ? 0.7 : 0.78);
+  const width = Math.min(baseWidth + spotlightWidth, maxWidth);
+  const currentCenter = viewportWidth - rightBase - width / 2;
+  const targetCenter = viewportWidth * (isTokenScope ? 0.5 : 0.45);
+
+  return { currentCenter, targetCenter };
+}
+
 function updateProductShowcases(chapterStates) {
   let productPresence = 0;
 
@@ -997,19 +1024,15 @@ function updateProductShowcases(chapterStates) {
     const spotlightWidth = isTokenScope
       ? spotlightProgress * 190
       : spotlightProgress * 270;
-    const spotlightShift = isTokenScope
-      ? spotlightProgress * 86
-      : spotlightProgress * 116;
     const panelSize = 1 - spotlightProgress * 0.72;
     const panelOpacity = 1 - spotlightProgress * 0.78;
 
     showcase.classList.toggle("is-visible", visibility > 0.08);
     showcase.classList.toggle("is-spotlight", spotlightProgress > 0.64);
     showcase.style.setProperty("--showcase-opacity", String(visibility));
-    showcase.style.setProperty("--showcase-x", `${horizontalOffset}px`);
     showcase.style.setProperty("--showcase-y", `${introOffset}px`);
     showcase.style.setProperty("--showcase-expand", `${spotlightWidth}px`);
-    showcase.style.setProperty("--showcase-center-shift", `${spotlightShift}px`);
+    showcase.style.setProperty("--showcase-center-shift", "0px");
     showcase.style.setProperty("--showcase-panel-size", String(panelSize));
     showcase.style.setProperty("--showcase-panel-opacity", String(panelOpacity));
     showcase.style.setProperty(
@@ -1019,6 +1042,29 @@ function updateProductShowcases(chapterStates) {
     showcase.style.setProperty(
       "--showcase-scale",
       String(0.78 + revealProgress * 0.22)
+    );
+
+    const { currentCenter, targetCenter } = getShowcaseLayoutMetrics(
+      isTokenScope,
+      spotlightWidth
+    );
+    const stageMoveStart = isTokenScope ? 0.4 : 0.44;
+    const stageMoveEnd = isTokenScope ? 0.6 : 0.62;
+    const stageShiftProgress = state.reducedMotion
+      ? 1
+      : easeInOut(
+          clamp(
+            (scrubProgress - stageMoveStart) /
+              (stageMoveEnd - stageMoveStart),
+            0,
+            1
+          )
+        );
+    const stageShift = (targetCenter - currentCenter) * stageShiftProgress;
+
+    showcase.style.setProperty(
+      "--showcase-x",
+      `${horizontalOffset + stageShift}px`
     );
     showcase.style.setProperty("--showcase-progress", String(stepProgress));
     showcase.style.setProperty("--showcase-media-scale", String(mediaScale));
