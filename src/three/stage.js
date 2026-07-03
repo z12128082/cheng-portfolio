@@ -1,0 +1,154 @@
+import * as THREE from "three";
+import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass.js";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
+import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
+import { HoloFXShader } from "./fx.js";
+
+export function detectQuality() {
+  const isMobile =
+    window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 820;
+  return {
+    isMobile,
+    pixelRatio: Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2),
+    particleCount: isMobile ? 25000 : 80000
+  };
+}
+
+export function createStage({ canvas, reducedMotion, sceneShapes }) {
+  const quality = detectQuality();
+  const renderer = new THREE.WebGLRenderer({
+    canvas,
+    antialias: !quality.isMobile,
+    powerPreference: "high-performance"
+  });
+  renderer.setPixelRatio(quality.pixelRatio);
+  renderer.setSize(window.innerWidth, window.innerHeight, false);
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.1;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color("#05070d");
+  scene.fog = new THREE.FogExp2(new THREE.Color("#05070d"), 0.032);
+
+  const camera = new THREE.PerspectiveCamera(
+    38,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    120
+  );
+  camera.position.set(0, 3.2, 11);
+  camera.lookAt(0, 1.3, 0);
+
+  const grid = new THREE.GridHelper(36, 72, 0x6ee7ff, 0x18384a);
+  grid.material.transparent = true;
+  grid.material.opacity = 0.14;
+  grid.material.depthWrite = false;
+  scene.add(grid);
+
+  const composer = new EffectComposer(renderer);
+  composer.addPass(new RenderPass(scene, camera));
+  const bloom = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    quality.isMobile ? 0.55 : 0.85,
+    0.7,
+    0.52
+  );
+  composer.addPass(bloom);
+  const holoPass = new ShaderPass(HoloFXShader);
+  composer.addPass(holoPass);
+  composer.addPass(new OutputPass());
+
+  const ctx = {
+    scene,
+    camera,
+    renderer,
+    composer,
+    holoPass,
+    bloom,
+    grid,
+    quality,
+    sceneId: "intro",
+    progress: 0,
+    pointer: { x: 0, y: 0 },
+    pulseValue: 0,
+    reducedMotion: Boolean(reducedMotion)
+  };
+
+  const frameHooks = [];
+  const clock = new THREE.Clock();
+  let rafId = 0;
+
+  function renderFrame() {
+    const dt = Math.min(clock.getDelta(), 0.05);
+    const time = clock.elapsedTime;
+    ctx.pulseValue = Math.max(0, ctx.pulseValue - dt * 1.6);
+    holoPass.uniforms.uTime.value = time;
+    for (const hook of frameHooks) hook(dt, time, ctx);
+    composer.render();
+  }
+
+  function loop() {
+    rafId = requestAnimationFrame(loop);
+    renderFrame();
+  }
+
+  function stopLoop() {
+    cancelAnimationFrame(rafId);
+    rafId = 0;
+  }
+
+  function applyMode() {
+    stopLoop();
+    if (ctx.reducedMotion) {
+      // settle hooks then render one static frame
+      for (let i = 0; i < 90; i++) {
+        for (const hook of frameHooks) hook(1 / 60, 0, ctx);
+      }
+      holoPass.uniforms.uTime.value = 0;
+      composer.render();
+    } else if (!document.hidden) {
+      clock.getDelta();
+      loop();
+    }
+  }
+
+  document.addEventListener("visibilitychange", applyMode);
+
+  window.addEventListener("resize", () => {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h, false);
+    composer.setSize(w, h);
+    if (ctx.reducedMotion) applyMode();
+  });
+
+  return {
+    ctx,
+    start: applyMode,
+    setScene(sceneId, progress) {
+      const changed = ctx.sceneId !== sceneId;
+      ctx.sceneId = sceneId;
+      ctx.progress = progress;
+      if (changed && ctx.reducedMotion) applyMode();
+    },
+    setPointer(nx, ny) {
+      ctx.pointer.x = nx;
+      ctx.pointer.y = ny;
+    },
+    setReducedMotion(value) {
+      ctx.reducedMotion = Boolean(value);
+      applyMode();
+    },
+    pulse() {
+      ctx.pulseValue = 1;
+    },
+    registerFrameHook(fn) {
+      frameHooks.push(fn);
+      if (ctx.reducedMotion) applyMode();
+    }
+  };
+}
