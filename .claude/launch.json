@@ -6,6 +6,22 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 4173
+    },
+    {
+      "name": "twin",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "/Users/zhengzhongjie/work/personal/semiconductor-digital-twin",
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "4181",
+        "--host",
+        "127.0.0.1"
+      ],
+      "port": 4181
     }
   ]
 }
