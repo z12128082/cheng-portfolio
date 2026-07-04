@@ -1635,3 +1635,16 @@ html.is-stage-live .stage-progress {
     transition: opacity 260ms ease;
   }
 }
+
+/* ── Showcase chapters get a longer scroll runway — they are the leads ── */
+.film-chapter[data-scene="wafer-drift"],
+.film-chapter[data-scene="prompt-fabric"] {
+  min-height: 165vh;
+}
+
+@media (max-width: 640px) {
+  .film-chapter[data-scene="wafer-drift"],
+  .film-chapter[data-scene="prompt-fabric"] {
+    min-height: 150vh;
+  }
+}

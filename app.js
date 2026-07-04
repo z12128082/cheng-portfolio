@@ -447,10 +447,10 @@ const showcaseSceneIds = new Set(
 const sceneSwitchProgress = 0.34;
 const sceneReleaseProgress = 0.08;
 const showcaseStepCount = 4;
-const showcaseRevealStart = 0.46;
-const showcaseRevealEnd = 0.68;
-const showcaseDemoStart = 0.56;
-const showcaseSpotlightStart = 0.68;
+const showcaseRevealStart = 0.4;
+const showcaseRevealEnd = 0.58;
+const showcaseDemoStart = 0.5;
+const showcaseSpotlightStart = 0.62;
 const showcaseSpotlightEnd = 0.94;
 
 function t(path) {
@@ -709,8 +709,8 @@ function updateProductShowcases(chapterStates) {
     const isMobileLayout = window.innerWidth <= 820;
     // on mobile the card is bottom-anchored over the text column, so it
     // reveals later and pushes the chapter copy out of the way
-    const revealStartAt = isMobileLayout ? 0.5 : showcaseRevealStart;
-    const revealEndAt = isMobileLayout ? 0.64 : showcaseRevealEnd;
+    const revealStartAt = isMobileLayout ? 0.44 : showcaseRevealStart;
+    const revealEndAt = isMobileLayout ? 0.58 : showcaseRevealEnd;
     const scrubProgress = state.reducedMotion
       ? 0.58
       : getChapterScrubProgress(chapterState.node);
@@ -723,7 +723,7 @@ function updateProductShowcases(chapterStates) {
             1
           )
         );
-    const exitStartAt = isMobileLayout ? 0.74 : 0.97;
+    const exitStartAt = isMobileLayout ? 0.78 : 0.97;
     const exitRangeAt = isMobileLayout ? 0.08 : 0.03;
     const exitProgress = easeInOut(
       clamp((scrubProgress - exitStartAt) / exitRangeAt, 0, 1)
